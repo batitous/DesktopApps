@@ -3,14 +3,14 @@
 
 BABCODE_PATH = ../../../../babcode/babcode
 
+COMMON_PATH = ../../../common
+include(../../common/common.pri)
+
 QT += widgets
 
 QMAKE += -j3
-
 TEMPLATE = app
-
 DESTDIR = ./
-
 DEPENDPATH = .
 
 INCLUDEPATH +=  . \
@@ -31,22 +31,14 @@ mac {
 
     TARGET = Test
 
-#    HEADERS += ../../../common/include/mac/mac.h
-
- #   SOURCES += ../../../common/source/utilsmacosx.cpp
-
-  #  OBJECTIVE_SOURCES   += ../../../common/source/mac/mac.mm
-
     LIBS += $$BABCODE_PATH/project/macosx/Build/Products/Release/libbabcode-macosx.a \
-                -framework AppKit -framework IOKit
+            -framework AppKit -framework IOKit
 }
 
 unix:!mac {
     OBJECTS_DIR = ./buildUnix/
     MOC_DIR = ./buildUnix/
     UI_DIR = ./buildUnix/
-
-    SOURCES += ../../../common/source/utilslinux.cpp
 
     TARGET = pobtools
 }
@@ -57,8 +49,6 @@ win32 {
     UI_DIR = ./buildWin32/
 
     TARGET = ./Debug/pobtools
-
-    SOURCES             += ../../../common/source/utilswin32.cpp
 
 #    RC_FILE *= version.rc
 
