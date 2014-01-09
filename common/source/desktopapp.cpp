@@ -1,3 +1,4 @@
+// Baptiste Burles, Kliplab, 2014
 
 #include "../include/desktopapp.h"
 
@@ -21,7 +22,7 @@ RecentFiles* DesktopApp::recentfiles()
     return mRecentFiles;
 }
 
-QString DesktopApp::lang()
+QString DesktopApp::langFromSettings()
 {
     return mSettings->value("LANG").toString();;
 }
@@ -29,6 +30,16 @@ QString DesktopApp::lang()
 void DesktopApp::setLang(QString & lang)
 {
     mSettings->setValue("LANG", QVariant(lang));
+}
+
+QString DesktopApp::portComFromSettings()
+{
+    return mSettings->value("COM").toString();
+}
+
+void DesktopApp::setPortCom(QString & portcom)
+{
+    mSettings->setValue("COM", QVariant(portcom));
 }
 
 void desktopAppMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
@@ -106,7 +117,7 @@ void DesktopApp::init()
 
 void DesktopApp::loadLang(QString name)
 {
-    QString lang = DesktopApp::lang();
+    QString lang = DesktopApp::langFromSettings();
     QString locale = lang;
 
     if(lang.isEmpty()==true)

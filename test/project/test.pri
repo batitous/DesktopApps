@@ -30,9 +30,6 @@ mac {
     UI_DIR = ./buildOSX/
 
     TARGET = Test
-
-    LIBS += $$BABCODE_PATH/project/macosx/Build/Products/Release/libbabcode-macosx.a \
-            -framework AppKit -framework IOKit
 }
 
 unix:!mac {
@@ -40,7 +37,7 @@ unix:!mac {
     MOC_DIR = ./buildUnix/
     UI_DIR = ./buildUnix/
 
-    TARGET = pobtools
+    TARGET = test
 }
 
 win32 {
@@ -48,7 +45,7 @@ win32 {
     MOC_DIR = ./buildWin32/
     UI_DIR = ./buildWin32/
 
-    TARGET = ./Debug/pobtools
+    TARGET = ./Debug/test
 
 #    RC_FILE *= version.rc
 

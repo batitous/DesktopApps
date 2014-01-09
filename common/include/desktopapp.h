@@ -1,4 +1,4 @@
-
+// Baptiste Burles, Kliplab, 2014
 #ifndef DESKTOP_APP_H
 #define DESKTOP_APP_H
 
@@ -25,8 +25,12 @@ public:
     static QSettings* settings();
     static RecentFiles* recentfiles();
 
-    static QString lang();
+    static QString langFromSettings();
     static void setLang(QString & lang);
+
+
+    static QString portComFromSettings();
+    static void setPortCom(QString & portcom);
 
 signals:
     void openFile(QString filename);

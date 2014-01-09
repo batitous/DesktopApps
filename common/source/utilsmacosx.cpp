@@ -1,3 +1,5 @@
+// Baptiste Burles, Kliplab, 2014
+
 #include <QtCore/QCoreApplication>
 
 #ifdef Q_OS_DARWIN

@@ -1,4 +1,4 @@
-
+// Baptiste Burles, Kliplab, 2014
 #ifndef DESKTOP_APP_UTILS_H
 #define DESKTOP_APP_UTILS_H
 
