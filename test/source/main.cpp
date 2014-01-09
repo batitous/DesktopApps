@@ -1,6 +1,7 @@
-
+// Baptiste Burles, Kliplab, 2014
 #include <QtWidgets/QApplication>
 #include <QtCore/QDebug>
+#include <QFileInfo>
 
 #include "../../../common/include/desktopapp.h"
 #include "../../../common/include/desktopui.h"
@@ -14,12 +15,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "Hello World !";
 
-    QStringList ports;
-    int n = Utils::getListOfPortCom(&ports);
-    qDebug() << "USB Port: " << ports.at(0);
-
     qDebug() << "getAppDirPath: " << Utils::getAppDirPath();
-    qDebug() << "getCommonUserDataPath: " << Utils::getCommonUserDataPath();
     qDebug() << "getTempDataPath: " << Utils::getTempDataPath();
 
     app->init();
@@ -34,7 +30,6 @@ int main(int argc, char *argv[])
     nxp->setFirmwareToUpload(file);
 
     u->run(nxp);
-
 
     ComPortWidget * c = new ComPortWidget();
     c->refreshPortComList();

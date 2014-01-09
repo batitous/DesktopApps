@@ -87,11 +87,6 @@ QString Utils::getAppDirPath()
     return QCoreApplication::applicationDirPath()+"/../Resources";
 }
 
-QString Utils::getCommonUserDataPath()
-{
-    return QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0);
-}
-
 QString Utils::getUserDataPath()
 {
     return QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0);

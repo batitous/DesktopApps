@@ -1,3 +1,4 @@
+// Baptiste Burles, Kliplab, 2014
 #include "dialog.h"
 #include "ui_dialog.h"
 

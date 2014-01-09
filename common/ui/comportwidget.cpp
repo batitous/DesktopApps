@@ -1,3 +1,4 @@
+// Baptiste Burles, Kliplab, 2014
 #include "comportwidget.h"
 #include "ui_comportwidget.h"
 
@@ -35,8 +36,8 @@ void ComPortWidget::refreshPortComList()
 
 void ComPortWidget::activatedEvent(int index)
 {
-    qDebug() << "ComPortWidget::activatedEvent " << mPortComList.at(index);
-
-    DesktopApp::setPortCom(mPortComList.at(index));
-
+    if (index != -1)
+    {
+        DesktopApp::setPortCom(mPortComList.at(index));
+    }
 }

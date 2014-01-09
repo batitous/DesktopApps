@@ -1,3 +1,4 @@
+// Baptiste Burles, Kliplab, 2014
 #include "uploadwidget.h"
 #include "ui_uploadwidget.h"
 
@@ -81,7 +82,7 @@ void UploadWidget::endEvent(bool ok)
     Dialog * dialog = new Dialog(this);
 
     dialog->setButton(Dialog::Left, Dialog::Accept, "Oki", false);
-    dialog->setButton(Dialog::Right, Dialog::Reject, "Cancel", false);
+    dialog->setButton(Dialog::Right, Dialog::Reject, "Cancel", true);
 
     int result = dialog->show(Dialog::Error, tr("Ypiiii"), QString("lsdkfjsldkfjsldkfjsldkfjlsjdkfj un grand message sur plusieurs lignes ????"));
 

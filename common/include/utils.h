@@ -9,8 +9,8 @@ class Utils
 public:
     static int getListOfPortCom(QStringList *portList);
 
-    static QString getCommonUserDataPath();
     static QString getUserDataPath();
+
     static QString getTempDataPath();
     static QString getAppDirPath();
 

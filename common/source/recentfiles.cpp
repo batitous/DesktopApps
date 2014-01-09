@@ -5,6 +5,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QDate>
 #include <QtCore/QDebug>
+#include <QtGui/QDesktopServices>
 
 
 RecentFiles::RecentFiles(QSettings * pSettings)
@@ -85,8 +86,15 @@ void RecentFiles::add(QString file, QString programName)
 
 QList<RecentElement *> * RecentFiles::get()
 {
-    // if list empty, grab the documents repertory instead ?
-//    QString tmp = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + "/temp.tmp";
-
     return mList;
+}
+
+QString RecentFiles::getFirstFile()
+{
+    if(mList->count()==0)
+    {
+        return QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).at(0)+"/temp.tmp";
+    }
+
+    return mList->at(0)->file;
 }

@@ -1,9 +1,8 @@
-
+// Baptiste Burles, Kliplab, 2014
 #ifndef DESKTOP_APP_RECENT_H
 #define DESKTOP_APP_RECENT_H
 
 #include <QtCore/QString>
-// Baptiste Burles, Kliplab, 2014
 #include <QtCore/QList>
 #include <QtCore/QSettings>
 
@@ -29,6 +28,8 @@ public:
 
     /* Get the list of files */
     QList<RecentElement *> * get();
+
+    QString getFirstFile();
 
 private:
     QSettings *             mSettings;

@@ -104,10 +104,11 @@ QString Utils::getAppDirPath()
     return QCoreApplication::applicationDirPath();
 }
 
-QString Utils::getCommonUserDataPath()
+/*QString Utils::getCommonUserDataPath()
 {
     return getSpecialRepertory(CSIDL_COMMON_APPDATA);
 }
+*/
 
 QString Utils::getUserDataPath()
 {
