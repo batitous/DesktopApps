@@ -27,7 +27,7 @@ QString DesktopApp::langFromSettings()
     return mSettings->value("LANG").toString();;
 }
 
-void DesktopApp::setLang(QString & lang)
+void DesktopApp::setLang(const QString & lang)
 {
     mSettings->setValue("LANG", QVariant(lang));
 }
@@ -37,7 +37,7 @@ QString DesktopApp::portComFromSettings()
     return mSettings->value("COM").toString();
 }
 
-void DesktopApp::setPortCom(QString & portcom)
+void DesktopApp::setPortCom(const QString & portcom)
 {
     mSettings->setValue("COM", QVariant(portcom));
 }

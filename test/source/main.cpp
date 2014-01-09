@@ -3,8 +3,7 @@
 #include <QtCore/QDebug>
 
 #include "../../../common/include/desktopapp.h"
-
-#include "../../../common/ui/uploadwidget.h"
+#include "../../../common/include/desktopui.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +34,11 @@ int main(int argc, char *argv[])
     nxp->setFirmwareToUpload(file);
 
     u->run(nxp);
+
+
+    ComPortWidget * c = new ComPortWidget();
+    c->refreshPortComList();
+    c->show();
 
     return app->exec();
 }

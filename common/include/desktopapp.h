@@ -26,11 +26,11 @@ public:
     static RecentFiles* recentfiles();
 
     static QString langFromSettings();
-    static void setLang(QString & lang);
+    static void setLang(const QString & lang);
 
 
     static QString portComFromSettings();
-    static void setPortCom(QString & portcom);
+    static void setPortCom(const QString & portcom);
 
 signals:
     void openFile(QString filename);

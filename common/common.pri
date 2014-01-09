@@ -8,22 +8,26 @@ INCLUDEPATH +=  $$COMMON_PATH/include \
 
 HEADERS +=  $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
             $$COMMON_PATH/include/desktopapp.h \
+            $$COMMON_PATH/include/desktopui.h \
             $$COMMON_PATH/include/firmware/firmwareupdate.h \
             $$COMMON_PATH/include/firmware/nxpupdate.h \
             $$COMMON_PATH/include/utils.h \
             $$COMMON_PATH/include/recentfiles.h \
             $$COMMON_PATH/ui/uploadwidget.h \
-            $$COMMON_PATH/ui/dialog.h
+            $$COMMON_PATH/ui/dialog.h \
+            $$COMMON_PATH/ui/comportwidget.h
 
 SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
             $$COMMON_PATH/source/firmware/firmwareupdate.cpp \
             $$COMMON_PATH/source/firmware/nxpupdate.cpp \
             $$COMMON_PATH/source/recentfiles.cpp \
             $$COMMON_PATH/ui/uploadwidget.cpp \
-            $$COMMON_PATH/ui/dialog.cpp
+            $$COMMON_PATH/ui/dialog.cpp \
+            $$COMMON_PATH/ui/comportwidget.cpp
 
 FORMS +=    $$COMMON_PATH/ui/uploadwidget.ui \
-            $$COMMON_PATH/ui/dialog.ui
+            $$COMMON_PATH/ui/dialog.ui \
+            $$COMMON_PATH/ui/comportwidget.ui
 
 mac {
     SOURCES += $$COMMON_PATH/source/utilsmacosx.cpp
