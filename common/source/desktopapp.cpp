@@ -75,8 +75,12 @@ DesktopApp::~DesktopApp()
 
 }
 
-void DesktopApp::init()
+void DesktopApp::init(const QString & companyName, const QString & applicationName)
 {
+    // Set organization/application name
+    QCoreApplication::setOrganizationName(companyName);
+    QCoreApplication::setApplicationName(applicationName);
+
     QString name = QCoreApplication::applicationName();
 
     // Init settings
@@ -88,12 +92,12 @@ void DesktopApp::init()
     // Get recent files
     mRecentFiles = new RecentFiles(mSettings);
 
-    /* Add Qt plugins repertory */
+    // Add Qt plugins repertory
     QString plugins = Utils::getAppDirPath() + "/resources/plugins";
 
     QCoreApplication::addLibraryPath(plugins);
 
-    // Create application repertory */
+    // Create application repertory
     QString path = Utils::getUserDataPath();
 
     QDir dir(path);

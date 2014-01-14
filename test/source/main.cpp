@@ -8,32 +8,29 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setOrganizationName(QString("Kliplab"));
-    QCoreApplication::setApplicationName(QString("test"));
-
     DesktopApp *  app = new DesktopApp(argc, argv);
 
     qDebug() << "Hello World !";
-
     qDebug() << "getAppDirPath: " << Utils::getAppDirPath();
-    qDebug() << "getTempDataPath: " << Utils::getTempDataPath();
 
-    app->init();
+    app->init("Kliplab", "test");
 
-    NxpUpdateFirmware * nxp = new NxpUpdateFirmware();
+    QWidget * w = new QWidget();
+    ComPortWidget * c = new ComPortWidget(w);
+    c->refreshPortComList();
+    c->move(0,1);
 
-    UploadWidget * u = new UploadWidget();
-
-    u->show();
+    UploadWidget * u = new UploadWidget(w);
+    u->move(0,100);
 
     QString file = "/Users/baptiste/Desktop/Baptiste/projects/tests/POB/orbi/resources/firmwares/rs007_firmw_risbee.hex";
+
+    NxpUpdateFirmware * nxp = new NxpUpdateFirmware();
     nxp->setFirmwareToUpload(file);
 
     u->run(nxp);
 
-    ComPortWidget * c = new ComPortWidget();
-    c->refreshPortComList();
-    c->show();
+    w->show();
 
     return app->exec();
 }

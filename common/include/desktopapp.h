@@ -18,7 +18,7 @@ public:
     DesktopApp(int &argc, char **argv, bool GUIenabled = true);
     ~DesktopApp();
 
-    void init();
+    void init(const QString & companyName, const QString & applicatioName);
 
     bool event(QEvent *event);
 
@@ -27,7 +27,6 @@ public:
 
     static QString langFromSettings();
     static void setLang(const QString & lang);
-
 
     static QString portComFromSettings();
     static void setPortCom(const QString & portcom);
