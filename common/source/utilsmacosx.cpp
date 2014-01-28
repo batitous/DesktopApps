@@ -55,7 +55,7 @@ int Utils::getListOfPortCom(QStringList *portCombo)
          if(listPorts.size() == 0)
          {
              //"No valid serial device found in /dev, sorry !\nYou should have at least one of these :\n/dev/ttyS*\n/dev/tts/*\n/dev/ttyUSB*\n/dev/usb/tts/*\n"
-             return false;
+             return 0;
          }
          else
          {

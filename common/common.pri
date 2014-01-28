@@ -15,11 +15,13 @@ HEADERS +=  $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
             $$COMMON_PATH/include/recentfiles.h \
             $$COMMON_PATH/ui/uploadwidget.h \
             $$COMMON_PATH/ui/dialog.h \
-            $$COMMON_PATH/ui/comportwidget.h
+            $$COMMON_PATH/ui/comportwidget.h \
+            $$COMMON_PATH/include/radiouart.h
 
 SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
             $$COMMON_PATH/source/firmware/firmwareupdate.cpp \
             $$COMMON_PATH/source/firmware/nxpupdate.cpp \
+            $$COMMON_PATH/source/radiouart.cpp \
             $$COMMON_PATH/source/recentfiles.cpp \
             $$COMMON_PATH/ui/uploadwidget.cpp \
             $$COMMON_PATH/ui/dialog.cpp \
