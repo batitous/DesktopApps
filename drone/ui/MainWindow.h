@@ -2,11 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 
 #include "../../../common/include/desktopapp.h"
 #include "../../../common/include/desktopui.h"
 
+#include "../include/drone.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,10 +25,14 @@ public:
 private slots:
     void bConnectEvent(void);
     void bClearEvent(void);
+    void bTestEvent(void);
 
 private:
     ComPortWidget * wComport;
     QPushButton * bConnect;
+    QLabel *lStatusBar;
+
+    Drone* mDrone;
 
     Ui::MainWindow *ui;
 };

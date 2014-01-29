@@ -9,6 +9,7 @@
 
 #include "recentfiles.h"
 #include "utils.h"
+#include "radiouart.h"
 
 class DesktopApp : public QApplication
 {

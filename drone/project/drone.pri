@@ -17,13 +17,16 @@ INCLUDEPATH +=  . \
                 ../include \
                 ../source \
                 ../ui \
-                $$BABCODE_PATH/include/
+                $$BABCODE_PATH/include
                 
 
-HEADERS += ../../ui/MainWindow.h
+HEADERS +=  ../../ui/MainWindow.h \
+    ../../include/drone.h \
+    ../../include/droneprotocol.h
 
-SOURCES += ../../source/main.cpp \
-           ../../ui/MainWindow.cpp
+SOURCES +=  ../../source/main.cpp \
+            ../../ui/MainWindow.cpp \
+    ../../source/drone.cpp
 
 FORMS   += ../../ui/MainWindow.ui
 

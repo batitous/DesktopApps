@@ -9,6 +9,18 @@
 #define END_OF_PACKET           0x20
 #define ERROR_BIT               0x80
 
+RadioUart* RadioUart::radioUart=0;
+
+
+RadioUart* RadioUart::instance()
+{
+    if (radioUart==0)
+    {
+        radioUart = new RadioUart();
+    }
+
+    return radioUart;
+}
 
 RadioUart::RadioUart()
 {

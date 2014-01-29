@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QDebug>
-#include <QFileInfo>
+#include <QtCore/QFileInfo>
 
 #include "../../ui/MainWindow.h"
 
@@ -10,10 +10,10 @@ int main(int argc, char *argv[])
 {
     DesktopApp *  app = new DesktopApp(argc, argv);
 
+    app->init("Kliplab", "Drone");
+
     qDebug() << "Hello World !";
     qDebug() << "getAppDirPath: " << Utils::getAppDirPath();
-
-    app->init("Kliplab", "Drone");
 
     QMainWindow * window = new MainWindow();
 
