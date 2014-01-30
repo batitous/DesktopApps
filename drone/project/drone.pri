@@ -6,7 +6,7 @@ BABCODE_PATH = ../../../../babcode/babcode
 COMMON_PATH = ../../../common
 include(../../common/common.pri)
 
-QT += widgets
+QT += widgets opengl concurrent
 
 QMAKE += -j3
 TEMPLATE = app
@@ -22,11 +22,16 @@ INCLUDEPATH +=  . \
 
 HEADERS +=  ../../ui/MainWindow.h \
     ../../include/drone.h \
-    ../../include/droneprotocol.h
+    ../../include/droneprotocol.h \
+    ../../include/gl/model.h \
+    ../../include/gl/openglscene.h \
+    ../../include/gl/point3d.h \
 
 SOURCES +=  ../../source/main.cpp \
-            ../../ui/MainWindow.cpp \
-    ../../source/drone.cpp
+    ../../ui/MainWindow.cpp \
+    ../../source/drone.cpp \
+    ../../source/gl/model.cpp \
+    ../../source/gl/openglscene.cpp \
 
 FORMS   += ../../ui/MainWindow.ui
 
@@ -58,3 +63,6 @@ win32 {
 
     LIBS += Advapi32.lib shell32.lib Ole32.lib Oleaut32.lib Rpcrt4.lib 
 }
+
+RESOURCES += \
+    ../../resources/resources.qrc
