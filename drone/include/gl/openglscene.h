@@ -23,6 +23,8 @@ class OpenGLScene : public QGraphicsScene
 public:
     OpenGLScene();
 
+    void addRotation(const Point3d & p);
+
     void drawBackground(QPainter *painter, const QRectF &rect);
 
 public slots:
@@ -82,14 +84,16 @@ public:
         this->setup();
     }
 
-    void setup() {
+    void setup()
+    {
         this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
         this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
         this->setScene(new OpenGLScene);
     }
 
 protected:
-    void resizeEvent(QResizeEvent *event) {
+    void resizeEvent(QResizeEvent *event)
+    {
         if (scene())
             scene()->setSceneRect(QRect(QPoint(0, 0), event->size()));
         QGraphicsView::resizeEvent(event);

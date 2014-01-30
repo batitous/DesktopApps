@@ -106,6 +106,13 @@ OpenGLScene::OpenGLScene()
     m_time.start();
 }
 
+void OpenGLScene::addRotation(const Point3d & p)
+{
+    m_rotation += p;
+
+    update();
+}
+
 void OpenGLScene::drawBackground(QPainter *painter, const QRectF &)
 {
     if (painter->paintEngine()->type() != QPaintEngine::OpenGL
@@ -242,7 +249,7 @@ void OpenGLScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         return;
     if (event->buttons() & Qt::LeftButton) {
         const QPointF delta = event->scenePos() - event->lastScenePos();
-        const Point3d angularImpulse = Point3d(delta.y(), delta.x(), 0) * 0.1;
+        const Point3d angularImpulse = Point3d(delta.y(), delta.x(), 0) * 0.3;
 
         m_rotation += angularImpulse;
         //m_accumulatedMomentum += angularImpulse;

@@ -9,6 +9,8 @@
 #include "../../../common/include/desktopui.h"
 
 #include "../include/drone.h"
+#include "../include/joystick.h"
+#include "../include/controlthread.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +35,7 @@ private:
     QLabel *lStatusBar;
 
     Drone* mDrone;
+    ControlThread* mControl;
 
     Ui::MainWindow *ui;
 };

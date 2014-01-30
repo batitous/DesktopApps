@@ -3,6 +3,8 @@
 
 BABCODE_PATH = ../../../../babcode/babcode
 
+SFML_PATH = ../../../../sfml
+
 COMMON_PATH = ../../../common
 include(../../common/common.pri)
 
@@ -17,7 +19,8 @@ INCLUDEPATH +=  . \
                 ../include \
                 ../source \
                 ../ui \
-                $$BABCODE_PATH/include
+                $$BABCODE_PATH/include \
+                $$SFML_PATH/include
                 
 
 HEADERS +=  ../../ui/MainWindow.h \
@@ -26,12 +29,16 @@ HEADERS +=  ../../ui/MainWindow.h \
     ../../include/gl/model.h \
     ../../include/gl/openglscene.h \
     ../../include/gl/point3d.h \
+    ../../include/joystick.h \
+    ../../include/controlthread.h
 
 SOURCES +=  ../../source/main.cpp \
     ../../ui/MainWindow.cpp \
     ../../source/drone.cpp \
     ../../source/gl/model.cpp \
     ../../source/gl/openglscene.cpp \
+    ../../source/joystick.cpp \
+    ../../source/controlthread.cpp
 
 FORMS   += ../../ui/MainWindow.ui
 
@@ -42,6 +49,8 @@ mac {
     UI_DIR = ./buildOSX/
 
     TARGET = Drone
+
+    LIBS += -F$$SFML_PATH/Frameworks -framework SFML -framework sfml-window
 }
 
 unix:!mac {

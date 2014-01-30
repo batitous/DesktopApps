@@ -3,6 +3,7 @@
 
 #include <QtCore/QDebug>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -27,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->bTest, SIGNAL(clicked()), this, SLOT(bTestEvent()));
 
     mDrone = new Drone();
+
+    mControl = new ControlThread(mDrone, (OpenGLScene*)ui->graphicsView->scene());
 }
 
 MainWindow::~MainWindow()
@@ -60,6 +63,8 @@ void MainWindow::bConnectEvent(void)
     qDebug() << "MainWindow::bConnectEvent" << DesktopApp::portComFromSettings();
 
     mDrone->connect();
+
+    mControl->start();
 
     if (mDrone->connected()==true)
     {
