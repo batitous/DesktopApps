@@ -125,5 +125,5 @@ bool Drone::extractAck()
 
 void Drone::extractContent(UInt8* buffer, UInt32 size)
 {
-
+//    readBufferFromByteStream();
 }

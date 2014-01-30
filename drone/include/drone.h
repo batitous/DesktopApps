@@ -37,7 +37,7 @@ private:
 
     void buildHeader(DroneCmd command);
     bool extractAck();
-
+    void extractContent(UInt8* buffer, UInt32 size);
 };
 
 #endif // Drone
