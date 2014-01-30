@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>641</width>
-    <height>454</height>
+    <width>867</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,33 +65,22 @@
         <height>80</height>
        </size>
       </property>
-      <widget class="QPushButton" name="bTest">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>40</y>
-         <width>115</width>
-         <height>32</height>
-        </rect>
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
+       <property name="spacing">
+        <number>-1</number>
        </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
+       <item>
+        <widget class="GraphicsView" name="graphicsView"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bTest">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item>
      <widget class="QWidget" name="wLog" native="true">
@@ -187,7 +176,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>641</width>
+     <width>867</width>
      <height>22</height>
     </rect>
    </property>
@@ -198,6 +187,13 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>../../include/gl/openglscene.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
