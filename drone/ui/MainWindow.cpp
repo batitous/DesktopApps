@@ -40,7 +40,17 @@ void MainWindow::bTestEvent(void)
 
     if (mDrone->ackPacket()->sizeOfNextPacket != 0)
     {
+        qDebug() << "===> Get log content !";
         mDrone->send(DRONE_CMD_LOG, mDrone->ackPacket()->sizeOfNextPacket + DRONE_PK_ACK_SIZE);
+
+        UInt8 log[512];
+
+        memset(log, 0, 512);
+        mDrone->extractContent(log, mDrone->ackPacket()->sizeOfNextPacket );
+
+        QString str((char *)log);
+
+        ui->pOutput->insertPlainText(str);
     }
 
 }
@@ -49,10 +59,18 @@ void MainWindow::bConnectEvent(void)
 {
     qDebug() << "MainWindow::bConnectEvent" << DesktopApp::portComFromSettings();
 
-
     mDrone->connect();
 
-    lStatusBar->setText("Connected");
+    if (mDrone->connected()==true)
+    {
+        bConnect->setText("Disconnect");
+        lStatusBar->setText("Connected");
+    }
+    else
+    {
+        bConnect->setText("Connect");
+        lStatusBar->setText("Disconnected");
+    }
 }
 
 void MainWindow::bClearEvent(void)

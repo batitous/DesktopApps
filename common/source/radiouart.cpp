@@ -166,6 +166,8 @@ UInt32 RadioUart::read(UInt8 *buffer, UInt32 size)
 
     UInt8 sizeRcv;
 
+    UInt32 timeout = 4;
+
     ptr = buffer;
     for (i=0; i < pkNumber; i++)
     {
@@ -174,6 +176,8 @@ UInt32 RadioUart::read(UInt8 *buffer, UInt32 size)
             if (uartRead(linkBuffer,RADIO_BUFFER_SIZE)==RADIO_BUFFER_SIZE)
             {
                 sizeRcv = linkBuffer[0] & SIZE_MASK;
+
+//                qDebug() << "Read packet:" << i << " flag: " << linkBuffer[0] << " Size:" << sizeRcv;
 
                 if (i==0 && (linkBuffer[0] & FIRST_PACKET) != FIRST_PACKET )
                 {
@@ -206,6 +210,8 @@ UInt32 RadioUart::read(UInt8 *buffer, UInt32 size)
             {
                 sizeRcv = linkBuffer[0] & SIZE_MASK;
 
+//                qDebug() << "Read remind flag " << linkBuffer[0] << " Size" << sizeRcv;
+
                 if (pkNumber==0 && (linkBuffer[0] & FIRST_PACKET) != FIRST_PACKET )
                 {
                     qDebug() << "RadioUart::read: not first packet (2)!";
@@ -230,6 +236,7 @@ UInt32 RadioUart::read(UInt8 *buffer, UInt32 size)
             }
             else
             {
+                qDebug() << "RadioUart::read timeout remind" << remind;
                 return 0;
             }
         }

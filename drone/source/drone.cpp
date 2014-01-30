@@ -31,46 +31,57 @@ AckPacket*  Drone::ackPacket()
     return mAck;
 }
 
+bool Drone::connected()
+{
+    return isOpen;
+}
+
 void Drone::connect()
 {
     if (isOpen==false)
     {
         if (RadioUart::instance()->open( DesktopApp::portComFromSettings())==false)
         {
-
+            qDebug() << "Drone::connect failed to open uart: " << DesktopApp::portComFromSettings();
             return;
         }
 
         isOpen = true;
     }
+    else
+    {
+        RadioUart::instance()->close();
+        isOpen = false;
+    }
 }
 
-void Drone::send(DroneCmd command, UInt32 ackPacketSize)
+bool Drone::send(DroneCmd command, UInt32 ackPacketSize)
 {
-
     buildHeader(command);
 
     UInt32 size = getByteStreamSize(mOutput);
 
-    qDebug() << "Drone::send: size:"<< size;
+//    qDebug() << "Drone::send: size:"<< size;
 
     if (RadioUart::instance()->write(mOutput->buffer, size)==false)
     {
         qDebug() << "RadioUart::instance()->write  failed!";
-        return;
+        return false;
     }
 
     resetByteStream(mInput);
 
+    qDebug() << "===> Read: want" << ackPacketSize << " bytes.";
+
     if (RadioUart::instance()->read(mInput->buffer, ackPacketSize)!=ackPacketSize)
     {
         qDebug() << "RadioUart::instance()->read failed !";
-        return;
+        return false;
     }
 
     if (extractAck()==false)
     {
-        return;
+        return false;
     }
 
     qDebug() << "Drone::send received ack from" << mAck->from <<
@@ -78,7 +89,7 @@ void Drone::send(DroneCmd command, UInt32 ackPacketSize)
                 " for Command:" << mAck->command <<
                 " Size:" << mAck->sizeOfNextPacket;
 
-
+    return true;
 }
 
 void Drone::buildHeader(DroneCmd command)
@@ -125,5 +136,5 @@ bool Drone::extractAck()
 
 void Drone::extractContent(UInt8* buffer, UInt32 size)
 {
-//    readBufferFromByteStream();
+    readBufferFromByteStream(mInput, buffer, size);
 }

@@ -23,9 +23,13 @@ public:
     ~Drone();
 
     void connect();
-    void send(DroneCmd command, UInt32 ackPacketSize = DRONE_PK_ACK_SIZE);
+    bool connected();
+
+    bool send(DroneCmd command, UInt32 ackPacketSize = DRONE_PK_ACK_SIZE);
 
     AckPacket*  ackPacket();
+
+    void extractContent(UInt8* buffer, UInt32 size);
 
 private:
     ByteStream*     mInput;
@@ -37,7 +41,6 @@ private:
 
     void buildHeader(DroneCmd command);
     bool extractAck();
-    void extractContent(UInt8* buffer, UInt32 size);
 };
 
 #endif // Drone
