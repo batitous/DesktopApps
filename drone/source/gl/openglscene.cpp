@@ -28,12 +28,12 @@ QDialog *OpenGLScene::createDialog(const QString &windowTitle) const
 OpenGLScene::OpenGLScene()
     : m_wireframeEnabled(false)
     , m_normalsEnabled(false)
-    , m_modelColor(153, 255, 0)
-    , m_backgroundColor(255, 255, 255)
+    , m_modelColor(255, 0, 0)
+    , m_backgroundColor(33, 33, 33)
     , m_model(0)
     , m_lastTime(0)
     , m_distance(1.4f)
-    , m_angularMomentum(0, 40, 0)
+    , m_angularMomentum(0, 0, 0)
 {
     QWidget *controls = createDialog(tr("Controls"));
 
@@ -72,7 +72,7 @@ OpenGLScene::OpenGLScene()
     instructions->layout()->addWidget(new QLabel(tr("Use mouse wheel to zoom model, and click and drag to rotate model")));
     instructions->layout()->addWidget(new QLabel(tr("Move the sun around to change the light position")));
 
-    QWidget *widgets[] = { instructions, controls, statistics };
+    QWidget *widgets[] = { /*instructions,*/ controls/*, statistics*/ };
 
     // This is some winfow information or controls...
     for (uint i = 0; i < sizeof(widgets) / sizeof(*widgets); ++i) {
@@ -155,7 +155,7 @@ void OpenGLScene::drawBackground(QPainter *painter, const QRectF &)
 
     painter->endNativePainting();
 
-    QTimer::singleShot(20, this, SLOT(update()));
+    QTimer::singleShot(33, this, SLOT(update()));
 }
 
 static Model *loadModel(const QString &filePath)
@@ -245,7 +245,7 @@ void OpenGLScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         const Point3d angularImpulse = Point3d(delta.y(), delta.x(), 0) * 0.1;
 
         m_rotation += angularImpulse;
-        m_accumulatedMomentum += angularImpulse;
+        //m_accumulatedMomentum += angularImpulse;
 
         event->accept();
         update();
@@ -270,7 +270,7 @@ void OpenGLScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
 
     const int delta = m_time.elapsed() - m_mouseEventTime;
-    m_angularMomentum = m_accumulatedMomentum * (1000.0 / qMax(1, delta));
+    //m_angularMomentum = m_accumulatedMomentum * (1000.0 / qMax(1, delta));
     event->accept();
     update();
 }
