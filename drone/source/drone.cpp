@@ -13,6 +13,8 @@ Drone::Drone()
     mOutput = newByteStream(temp);
 
     isOpen = false;
+
+    mAck = new AckPacket();
 }
 
 Drone::~Drone()
@@ -22,6 +24,11 @@ Drone::~Drone()
 
     free(mOutput->buffer);
     free(mOutput);
+}
+
+AckPacket*  Drone::ackPacket()
+{
+    return mAck;
 }
 
 void Drone::connect()
@@ -38,7 +45,7 @@ void Drone::connect()
     }
 }
 
-void Drone::send(DroneCmd command)
+void Drone::send(DroneCmd command, UInt32 ackPacketSize)
 {
 
     buildHeader(command);
@@ -55,7 +62,7 @@ void Drone::send(DroneCmd command)
 
     resetByteStream(mInput);
 
-    if (RadioUart::instance()->read(mInput->buffer, DRONE_PK_ACK_SIZE)!=DRONE_PK_ACK_SIZE)
+    if (RadioUart::instance()->read(mInput->buffer, ackPacketSize)!=ackPacketSize)
     {
         qDebug() << "RadioUart::instance()->read failed !";
         return;
@@ -66,7 +73,10 @@ void Drone::send(DroneCmd command)
         return;
     }
 
-    qDebug() << "Drone::send received ack from" << mAckFrom << " Result:" << mAckResult << " for Command:" << mAckCommand;
+    qDebug() << "Drone::send received ack from" << mAck->from <<
+                " Result:" << mAck->result <<
+                " for Command:" << mAck->command <<
+                " Size:" << mAck->sizeOfNextPacket;
 
 
 }
@@ -85,6 +95,12 @@ void Drone::buildHeader(DroneCmd command)
     {
         write1ToByteStream(mOutput, 0);
     }
+
+/*    for(int i=0 ; i < DRONE_PK_HEADER_SIZE; i++)
+    {
+        printf("%x ", mOutput->buffer[i]);
+    }
+*/
 }
 
 bool Drone::extractAck()
@@ -98,12 +114,16 @@ bool Drone::extractAck()
 
     UInt8 address = read1FromByteStream(mInput);
 
-    mAckFrom = GET_SENDER(address);
-    mAckTo = GET_RECEIVER(address);
-
-    mAckCommand = (DroneCmd)read1FromByteStream(mInput);
-
-    mAckResult = (DroneCmdResult)read1FromByteStream(mInput);
+    mAck->from = GET_SENDER(address);
+    mAck->to = GET_RECEIVER(address);
+    mAck->command = (DroneCmd)read1FromByteStream(mInput);
+    mAck->result = (DroneCmdResult)read1FromByteStream(mInput);
+    mAck->sizeOfNextPacket = read2FromByteStream(mInput);
 
     return true;
+}
+
+void Drone::extractContent(UInt8* buffer, UInt32 size)
+{
+
 }

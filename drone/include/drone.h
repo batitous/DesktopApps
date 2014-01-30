@@ -7,6 +7,14 @@
 
 #include "droneprotocol.h"
 
+typedef struct _ack_packet_
+{
+    UInt8 from;
+    UInt8 to;
+    DroneCmd command;
+    DroneCmdResult result;
+    UInt16  sizeOfNextPacket;
+} AckPacket;
 
 class Drone
 {
@@ -15,7 +23,9 @@ public:
     ~Drone();
 
     void connect();
-    void send(DroneCmd command);
+    void send(DroneCmd command, UInt32 ackPacketSize = DRONE_PK_ACK_SIZE);
+
+    AckPacket*  ackPacket();
 
 private:
     ByteStream*     mInput;
@@ -23,10 +33,7 @@ private:
 
     bool isOpen;
 
-    UInt8       mAckFrom;
-    UInt8       mAckTo;
-    DroneCmd    mAckCommand;
-    DroneCmdResult mAckResult;
+    AckPacket* mAck;
 
     void buildHeader(DroneCmd command);
     bool extractAck();

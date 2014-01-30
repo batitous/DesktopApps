@@ -36,7 +36,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::bTestEvent(void)
 {
-    mDrone->send(DRONE_CMD_PING);
+    mDrone->send(DRONE_CMD_LOG_SIZE);
+
+    if (mDrone->ackPacket()->sizeOfNextPacket != 0)
+    {
+        mDrone->send(DRONE_CMD_LOG, mDrone->ackPacket()->sizeOfNextPacket + DRONE_PK_ACK_SIZE);
+    }
+
 }
 
 void MainWindow::bConnectEvent(void)
