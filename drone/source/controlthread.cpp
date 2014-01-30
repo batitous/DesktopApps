@@ -1,6 +1,7 @@
 // Baptiste Burles, Kliplab, 2014
 
 #include "../include/controlthread.h"
+#include "../include/math-utils.h"
 
 ControlThread::ControlThread(Drone* pDrone, OpenGLScene* pScene)
 {
@@ -19,10 +20,6 @@ void ControlThread::stop()
 
 }
 
-long ControlThread::map(long x, long in_min, long in_max, long out_min, long out_max)
-{
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
 
 void ControlThread::run()
 {
@@ -46,12 +43,13 @@ void ControlThread::run()
 
         // courbe de Chris
 
+        Point3d result;
 
-        v.x = map(v.x, -100, 100, -2,2);
-        v.y = map(v.y, -100, 100, -2,2);
-        v.z = map(v.z, -100, 100, -2,2);
+        result.y = joystickCurve(v.x, 3, 0, -100, 100) *10;
+        result.x = joystickCurve(v.y, 3, 0, -100, 100) *10;
+        result.z = - joystickCurve(v.z, 3, 0, -100, 100) *10;
 
-        mScene->addRotation(v);
+        mScene->addRotation(result);
 
         end = getTicks();
 

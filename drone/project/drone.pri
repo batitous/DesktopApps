@@ -30,7 +30,8 @@ HEADERS +=  ../../ui/MainWindow.h \
     ../../include/gl/openglscene.h \
     ../../include/gl/point3d.h \
     ../../include/joystick.h \
-    ../../include/controlthread.h
+    ../../include/controlthread.h \
+    ../../include/math-utils.h
 
 SOURCES +=  ../../source/main.cpp \
     ../../ui/MainWindow.cpp \
@@ -38,7 +39,8 @@ SOURCES +=  ../../source/main.cpp \
     ../../source/gl/model.cpp \
     ../../source/gl/openglscene.cpp \
     ../../source/joystick.cpp \
-    ../../source/controlthread.cpp
+    ../../source/controlthread.cpp \
+    ../../source/math-utils.cpp
 
 FORMS   += ../../ui/MainWindow.ui
 

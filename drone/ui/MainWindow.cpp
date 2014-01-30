@@ -3,6 +3,7 @@
 
 #include <QtCore/QDebug>
 
+#include "../include/math-utils.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,6 +38,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::bTestEvent(void)
 {
     mDrone->send(DRONE_CMD_LOG_SIZE);
@@ -54,6 +56,11 @@ void MainWindow::bTestEvent(void)
         QString str((char *)log);
 
         ui->pOutput->insertPlainText(str);
+    }
+
+    for(float i=-10; i < 10 ; i++)
+    {
+        qDebug() << i << joystickCurve(i, 3, 1,-10,10) << joystickCurve(i,5, -2,-10,10) << joystickCurve(i,17,0,-10,10);
     }
 
 }
