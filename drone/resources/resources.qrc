@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/obj">
-        <file>drone.obj</file>
+        <file>klipdrone.obj</file>
     </qresource>
 </RCC>

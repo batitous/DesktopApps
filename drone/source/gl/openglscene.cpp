@@ -102,7 +102,7 @@ OpenGLScene::OpenGLScene()
     m_lightItem->setPos(800, 200);
     addItem(m_lightItem);
 
-    loadModel(":obj/drone.obj");
+    loadModel(":obj/klipdrone.obj");
     m_time.start();
 }
 
