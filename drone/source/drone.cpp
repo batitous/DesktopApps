@@ -55,44 +55,79 @@ void Drone::connect()
     }
 }
 
-bool Drone::send(DroneCmd command, UInt32 ackPacketSize)
+bool Drone::run(DroneCmd command)
 {
-    buildHeader(command);
+    return runFullCommand(command, 0, DRONE_PK_ACK_SIZE);
+}
 
+bool Drone::runWithSize(DroneCmd command, UInt16 size)
+{
+    return runFullCommand(command, size, DRONE_PK_ACK_SIZE);
+}
+
+bool Drone::request(DroneCmd command, UInt32 requestByteSize)
+{
+    return runFullCommand(command, 0, requestByteSize);
+}
+
+bool Drone::runFullCommand(DroneCmd command, UInt16 specificSize, UInt32 ackPacketSize)
+{
+    buildHeader(command, specificSize);
+
+    return sendAndReceive(ackPacketSize);
+}
+
+bool Drone::writeToMemory(UInt16 addr, UInt8* buffer, UInt16 size)
+{
+    resetByteStream(mOutput);
+    write2ToByteStream(mOutput, addr);
+    writeBufferToByteStream(mOutput, buffer, size);
+
+    return sendAndReceive(DRONE_PK_ACK_SIZE);
+}
+/*
+bool Drone::readFromMemory(UInt16 addr)
+{
+
+}
+*/
+bool Drone::sendAndReceive(UInt32 ackPacketSize)
+{
     UInt32 size = getByteStreamSize(mOutput);
 
-//    qDebug() << "Drone::send: size:"<< size;
+//    qDebug() << "Drone::sendAndReceive: size:"<< size;
 
     if (RadioUart::instance()->write(mOutput->buffer, size)==false)
     {
-        qDebug() << "RadioUart::instance()->write  failed!";
+        qDebug() << "Drone::sendAndReceive: write failed (" << size << " bytes to send) !";
         return false;
     }
 
     resetByteStream(mInput);
 
-    qDebug() << "===> Read: want" << ackPacketSize << " bytes.";
+//    qDebug() << "===> Read: want" << ackPacketSize << " bytes.";
 
     if (RadioUart::instance()->read(mInput->buffer, ackPacketSize)!=ackPacketSize)
     {
-        qDebug() << "RadioUart::instance()->read failed !";
+        qDebug() << "Drone::sendAndReceive: failed to read " << ackPacketSize << " bytes.";
         return false;
     }
 
     if (extractAck()==false)
     {
+        qDebug() << "Drone::sendAndReceive failed to extract ack from packet!";
         return false;
     }
 
-    qDebug() << "Drone::send received ack from" << mAck->from <<
+    qDebug() << "Drone::runFullCommand received ack from" << mAck->from <<
                 " Result:" << mAck->result <<
                 " for Command:" << mAck->command <<
-                " Size:" << mAck->sizeOfNextPacket;
+                " Next bytes:" << mAck->sizeOfNextPacket;
 
     return true;
 }
 
-void Drone::buildHeader(DroneCmd command)
+void Drone::buildHeader(DroneCmd command, UInt16 size)
 {
     UInt8 address = SET_ADDRESS(MASTER, DRONE);
 
@@ -100,18 +135,14 @@ void Drone::buildHeader(DroneCmd command)
     write4ToByteStream(mOutput, DRONE_PK_MAGIC);
     write1ToByteStream(mOutput, address);
     write1ToByteStream(mOutput, command);
+    write2ToByteStream(mOutput, size);
 
     //empty content
-    for(int i=6 ; i < DRONE_PK_HEADER_SIZE; i++)
+    for(int i=8 ; i < DRONE_PK_HEADER_SIZE; i++)
     {
         write1ToByteStream(mOutput, 0);
     }
 
-/*    for(int i=0 ; i < DRONE_PK_HEADER_SIZE; i++)
-    {
-        printf("%x ", mOutput->buffer[i]);
-    }
-*/
 }
 
 bool Drone::extractAck()

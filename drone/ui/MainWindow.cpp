@@ -38,30 +38,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::bTestEvent(void)
+void MainWindow::testLog(void)
 {
-    mDrone->send(DRONE_CMD_LOG_SIZE);
+    if (mDrone->run(DRONE_CMD_LOG_SIZE)==false)
+    {
+        qDebug() << "MainWindow::testLog failed to execute drone command!";
+    }
 
     if (mDrone->ackPacket()->sizeOfNextPacket != 0)
     {
         qDebug() << "===> Get log content !";
-        mDrone->send(DRONE_CMD_LOG, mDrone->ackPacket()->sizeOfNextPacket + DRONE_PK_ACK_SIZE);
+
+        if (mDrone->request(DRONE_CMD_LOG, mDrone->ackPacket()->sizeOfNextPacket + DRONE_PK_ACK_SIZE)==false)
+        {
+            qDebug() << "MainWindow::testLog: mDrone->request failed !";
+        }
 
         UInt8 log[512];
 
         memset(log, 0, 512);
+
         mDrone->extractContent(log, mDrone->ackPacket()->sizeOfNextPacket );
 
         QString str((char *)log);
 
         ui->pOutput->insertPlainText(str);
     }
+}
 
-    for(float i=-10; i < 10 ; i++)
+void MainWindow::bTestEvent(void)
+{
+
+    if (mDrone->runWithSize(DRONE_CMD_MEMORY, 8)==false)
+    {
+        qDebug() << "MainWindow::bTestEvent failed to execute drone command!";
+    }
+
+    float toto[2];
+    toto[0] = 123.456;
+    toto[1] = -987.6;
+
+    qDebug() << "==> Write to memory ! float:" << sizeof(float);
+
+    mDrone->writeToMemory(0x3020, (UInt8*)&toto[0], 8);
+
+
+
+    qDebug() << "==> Read from memory !";
+
+    if (mDrone->runWithSize(DRONE_CMD_MEMORY, 2)==false)
+    {
+        qDebug() << "MainWindow::bTestEvent failed to execute drone command!";
+    }
+
+
+
+    // test output joystick curve
+/*    for(float i=-10; i < 10 ; i++)
     {
         qDebug() << i << joystickCurve(i, 3, 1,-10,10) << joystickCurve(i,5, -2,-10,10) << joystickCurve(i,17,0,-10,10);
     }
+*/
 
 }
 
@@ -92,3 +129,12 @@ void MainWindow::bClearEvent(void)
     ui->pOutput->clear();
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    qDebug() << "MainWindow::closeEvent";
+
+    mControl->stop();
+
+    event->accept();
+        //event->ignore();
+}

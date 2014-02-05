@@ -24,10 +24,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void testLog();
+
 private slots:
     void bConnectEvent(void);
     void bClearEvent(void);
     void bTestEvent(void);
+
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private:
     ComPortWidget * wComport;

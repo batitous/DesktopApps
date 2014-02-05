@@ -17,9 +17,12 @@ ControlThread::~ControlThread()
 
 void ControlThread::stop()
 {
-
+    if (mRun==true)
+    {
+        mRun = false;
+        QThread::msleep(20);
+    }
 }
-
 
 void ControlThread::run()
 {
@@ -29,6 +32,11 @@ void ControlThread::run()
     UInt32 end;
 
     Joystick* joystick = Joystick::instance();
+    if (joystick==0)
+    {
+        qDebug() << "ControlThread::run joystick not detected, exit thread!";
+        return;
+    }
 
     mRun = true;
     while( mRun == true)
@@ -55,4 +63,6 @@ void ControlThread::run()
 
         QThread::msleep(16 - (end-begin));
     }
+
+    qDebug() << "ControlThread::run, exit thread!";
 }

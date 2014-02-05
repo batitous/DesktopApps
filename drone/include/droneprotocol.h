@@ -8,7 +8,8 @@
  * byte 0-3 : Magic
  * byte 4   : Address
  * byte 5   : Command
- * byte 6-14: Command's specific content
+ * byte 6-7 : Specific Command Size (depends of the Command)
+ * byte 8-14: Command's specific content
  *
  * Drone to Emitter:
  * byte 0-3 : Magic
@@ -23,6 +24,9 @@ typedef enum _drone_command_
     DRONE_CMD_PING      = 0x00,
     DRONE_CMD_LOG_SIZE  = 0x01,
     DRONE_CMD_LOG       = 0x02,
+    DRONE_CMD_MEMORY    = 0x03,
+
+
     DRONE_CMD_RESET     = 0x5A
 } DroneCmd;
 

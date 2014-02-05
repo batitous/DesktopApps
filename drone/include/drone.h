@@ -25,7 +25,12 @@ public:
     void connect();
     bool connected();
 
-    bool send(DroneCmd command, UInt32 ackPacketSize = DRONE_PK_ACK_SIZE);
+    bool run(DroneCmd command);
+    bool runWithSize(DroneCmd command, UInt16 size);
+
+    bool request(DroneCmd command, UInt32 requestByteSize);
+
+    bool writeToMemory(UInt16 addr, UInt8* buffer, UInt16 size);
 
     AckPacket*  ackPacket();
 
@@ -39,7 +44,9 @@ private:
 
     AckPacket* mAck;
 
-    void buildHeader(DroneCmd command);
+    bool runFullCommand(DroneCmd command, UInt16 specificSize, UInt32 ackPacketSize);
+    bool sendAndReceive(UInt32 ackPacketSize);
+    void buildHeader(DroneCmd command, UInt16 size);
     bool extractAck();
 };
 
