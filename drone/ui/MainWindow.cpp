@@ -82,11 +82,11 @@ void MainWindow::bTestEvent(void)
 
     mDrone->writeToMemory(0x3020, (UInt8*)&toto[0], 8);
 
-
+    waitMs(400);
 
     qDebug() << "==> Read from memory !";
 
-    if (mDrone->runWithSize(DRONE_CMD_MEMORY, 2)==false)
+    if (mDrone->prepareReadFromMemory(0x3024)==false)
     {
         qDebug() << "MainWindow::bTestEvent failed to execute drone command!";
     }

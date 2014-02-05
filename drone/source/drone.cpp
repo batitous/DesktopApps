@@ -73,6 +73,7 @@ bool Drone::request(DroneCmd command, UInt32 requestByteSize)
 bool Drone::runFullCommand(DroneCmd command, UInt16 specificSize, UInt32 ackPacketSize)
 {
     buildHeader(command, specificSize);
+    emptyHeaderContent();
 
     return sendAndReceive(ackPacketSize);
 }
@@ -85,17 +86,25 @@ bool Drone::writeToMemory(UInt16 addr, UInt8* buffer, UInt16 size)
 
     return sendAndReceive(DRONE_PK_ACK_SIZE);
 }
-/*
-bool Drone::readFromMemory(UInt16 addr)
-{
 
+bool Drone::prepareReadFromMemory(UInt16 addr)
+{
+    buildHeader(DRONE_CMD_MEMORY, 2);
+    write2ToByteStream(mOutput, addr);
+
+    qDebug() << "read size command:" << getByteStreamSize(mOutput);
+
+    for(int i=10 ; i < DRONE_PK_HEADER_SIZE; i++)
+    {
+        write1ToByteStream(mOutput, 0);
+    }
+
+    return sendAndReceive(DRONE_PK_ACK_SIZE);
 }
-*/
+
 bool Drone::sendAndReceive(UInt32 ackPacketSize)
 {
     UInt32 size = getByteStreamSize(mOutput);
-
-//    qDebug() << "Drone::sendAndReceive: size:"<< size;
 
     if (RadioUart::instance()->write(mOutput->buffer, size)==false)
     {
@@ -104,8 +113,6 @@ bool Drone::sendAndReceive(UInt32 ackPacketSize)
     }
 
     resetByteStream(mInput);
-
-//    qDebug() << "===> Read: want" << ackPacketSize << " bytes.";
 
     if (RadioUart::instance()->read(mInput->buffer, ackPacketSize)!=ackPacketSize)
     {
@@ -136,13 +143,15 @@ void Drone::buildHeader(DroneCmd command, UInt16 size)
     write1ToByteStream(mOutput, address);
     write1ToByteStream(mOutput, command);
     write2ToByteStream(mOutput, size);
+}
 
+void Drone::emptyHeaderContent()
+{
     //empty content
     for(int i=8 ; i < DRONE_PK_HEADER_SIZE; i++)
     {
         write1ToByteStream(mOutput, 0);
     }
-
 }
 
 bool Drone::extractAck()

@@ -30,6 +30,7 @@ public:
 
     bool request(DroneCmd command, UInt32 requestByteSize);
 
+    bool prepareReadFromMemory(UInt16 addr);
     bool writeToMemory(UInt16 addr, UInt8* buffer, UInt16 size);
 
     AckPacket*  ackPacket();
@@ -47,6 +48,7 @@ private:
     bool runFullCommand(DroneCmd command, UInt16 specificSize, UInt32 ackPacketSize);
     bool sendAndReceive(UInt32 ackPacketSize);
     void buildHeader(DroneCmd command, UInt16 size);
+    void emptyHeaderContent();
     bool extractAck();
 };
 
