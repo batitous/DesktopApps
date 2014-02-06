@@ -40,58 +40,35 @@ MainWindow::~MainWindow()
 
 void MainWindow::testLog(void)
 {
-    if (mDrone->run(DRONE_CMD_LOG_SIZE)==false)
-    {
-        qDebug() << "MainWindow::testLog failed to execute drone command!";
-    }
+    QString str;
+    mDrone->requestLog(str);
+    ui->pOutput->insertPlainText(str);
 
-    if (mDrone->ackPacket()->sizeOfNextPacket != 0)
-    {
-        qDebug() << "===> Get log content !";
-
-        if (mDrone->request(DRONE_CMD_LOG, mDrone->ackPacket()->sizeOfNextPacket + DRONE_PK_ACK_SIZE)==false)
-        {
-            qDebug() << "MainWindow::testLog: mDrone->request failed !";
-        }
-
-        UInt8 log[512];
-
-        memset(log, 0, 512);
-
-        mDrone->extractContent(log, mDrone->ackPacket()->sizeOfNextPacket );
-
-        QString str((char *)log);
-
-        ui->pOutput->insertPlainText(str);
-    }
 }
 
 void MainWindow::bTestEvent(void)
 {
-
-    if (mDrone->runWithSize(DRONE_CMD_MEMORY, 8)==false)
-    {
-        qDebug() << "MainWindow::bTestEvent failed to execute drone command!";
-    }
+//    testLog();
 
     float toto[2];
     toto[0] = 123.456;
     toto[1] = -987.6;
 
-    qDebug() << "==> Write to memory ! float:" << sizeof(float);
+    qDebug() << "==> Write to memory !";
 
-    mDrone->writeToMemory(0x3020, (UInt8*)&toto[0], 8);
+    if (mDrone->write(0x3020, (UInt8*)&toto[0], 8)==false)
+    {
+        qDebug() << "FAILED TO WRITE DATA TO DRONE!";
+    }
 
     waitMs(400);
 
     qDebug() << "==> Read from memory !";
 
-    if (mDrone->prepareReadFromMemory(0x3024)==false)
-    {
-        qDebug() << "MainWindow::bTestEvent failed to execute drone command!";
-    }
+    UInt16 size = mDrone->read(0x3024, (UInt8*)&toto[0]);
 
-
+    qDebug() << "Size received=" << size;
+    qDebug() << "Toto" << toto[0] << " next:" << toto[1];
 
     // test output joystick curve
 /*    for(float i=-10; i < 10 ; i++)

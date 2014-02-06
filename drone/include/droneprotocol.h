@@ -25,7 +25,7 @@ typedef enum _drone_command_
     DRONE_CMD_LOG_SIZE  = 0x01,
     DRONE_CMD_LOG       = 0x02,
     DRONE_CMD_MEMORY    = 0x03,
-
+    DRONE_CMD_MEMORY_READ = 0x04,
 
     DRONE_CMD_RESET     = 0x5A
 } DroneCmd;

@@ -25,17 +25,16 @@ public:
     void connect();
     bool connected();
 
-    bool run(DroneCmd command);
-    bool runWithSize(DroneCmd command, UInt16 size);
+    bool requestLog(QString & string);
 
-    bool request(DroneCmd command, UInt32 requestByteSize);
+    bool write(UInt16 address, UInt8* buffer, UInt16 size);
 
-    bool prepareReadFromMemory(UInt16 addr);
-    bool writeToMemory(UInt16 addr, UInt8* buffer, UInt16 size);
+    UInt16 read(UInt16 address, UInt8* buffer);
+
 
     AckPacket*  ackPacket();
-
     void extractContent(UInt8* buffer, UInt32 size);
+
 
 private:
     ByteStream*     mInput;
@@ -45,10 +44,14 @@ private:
 
     AckPacket* mAck;
 
-    bool runFullCommand(DroneCmd command, UInt16 specificSize, UInt32 ackPacketSize);
-    bool sendAndReceive(UInt32 ackPacketSize);
-    void buildHeader(DroneCmd command, UInt16 size);
-    void emptyHeaderContent();
+    UInt8           mLog[512];
+
+
+    void buildDefaultHeader(DroneCmd command, UInt16 sizeIWantForNextPacket);
+    void buildEndOfHeader();
+    bool sendHeader();
+
+    bool receiveAck(UInt32 sizeToReceive);
     bool extractAck();
 };
 
