@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtCore/QTimer>
 
 #include "../../../common/include/desktopapp.h"
 #include "../../../common/include/desktopui.h"
@@ -11,6 +12,8 @@
 #include "../include/drone.h"
 #include "../include/joystick.h"
 #include "../include/controlthread.h"
+
+#include "../include/loopstream.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,7 +33,7 @@ private slots:
     void bConnectEvent(void);
     void bClearEvent(void);
     void bTestEvent(void);
-
+    void timerUpdate();
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -41,6 +44,11 @@ private:
 
     Drone* mDrone;
     ControlThread* mControl;
+
+    QTimer *timer;
+    LoopStream*     mLoop;
+
+    QGraphicsScene * mControlScene;
 
     Ui::MainWindow *ui;
 };

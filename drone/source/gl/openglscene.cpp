@@ -72,7 +72,7 @@ OpenGLScene::OpenGLScene()
     instructions->layout()->addWidget(new QLabel(tr("Use mouse wheel to zoom model, and click and drag to rotate model")));
     instructions->layout()->addWidget(new QLabel(tr("Move the sun around to change the light position")));
 
-    QWidget *widgets[] = { /*instructions,*/ controls/*, statistics*/ };
+    QWidget *widgets[] = { /*instructions,controls/*, statistics*/ };
 
     // This is some winfow information or controls...
     for (uint i = 0; i < sizeof(widgets) / sizeof(*widgets); ++i) {

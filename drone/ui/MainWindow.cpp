@@ -3,6 +3,7 @@
 
 #include <QtCore/QDebug>
 
+
 #include "../include/math-utils.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -31,11 +32,96 @@ MainWindow::MainWindow(QWidget *parent) :
     mDrone = new Drone();
 
     mControl = new ControlThread(mDrone, (OpenGLScene*)ui->graphicsView->scene());
+
+
+    QVector <QPointF> points;
+
+    // Fill in points with n number of points
+//    for(int i = -200; i< 100; i++)
+//       points.append(QPointF(i, i));
+
+
+    points.append(QPointF(0,0));
+
+    points.append(QPointF(0,100));
+    points.append(QPointF(0,250));
+
+    points.append(QPointF(30,30));
+
+    points.append(QPointF(100,30));
+
+    // Create a view, put a scene in it and add tiny circles
+    // in the scene
+
+    mControlScene = new QGraphicsScene();
+
+    mControlScene->setSceneRect(-10,-10, 300,300);
+
+    ui->gInstrument->setScene(mControlScene);
+    ui->gInstrument->scale(1,-1);
+
+
+    for(int i = 0; i< points.size(); i++)
+    {
+        mControlScene->addEllipse(points[i].x(), points[i].y(), 1, 1);
+
+    }
+
+    qDebug() << "Scene rect:" << mControlScene->sceneRect();
+    qDebug() << "View  rect:" << ui->gInstrument->sceneRect() << " size:" << ui->gInstrument->size();
+
+
+    mLoop = new LoopStream(128);
+    for(int i=0; i< 128; i++)
+    {
+        mLoop->write((float)i);
+    }
+
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+    timer->start(100);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::timerUpdate()
+{
+    //if (mLoop->isAvailable() == true)
+    {
+        mControlScene->clear();
+
+        float data;
+        int i = 0;
+
+        float xprev = 0;
+        float yprev = 0;
+
+        while(i<mLoop->mSize)
+        {
+            data = mLoop->mBuffer[(mLoop->mWrite+i) & (mLoop->mSize-1)];
+
+            mControlScene->addLine( xprev, yprev, i, data);
+//            mControlScene->addEllipse(i, data, 1, 1);
+
+            xprev = i;
+            yprev = data;
+
+            i++;
+        }
+        /*while( mLoop->read(&data) == true)
+        {
+            mControlScene->addEllipse(i, data, 1, 1);
+
+            i++;
+        }*/
+    }
+
+    mLoop->write( getRandomBetween(0,100));
+
+    timer->start(100);
 }
 
 void MainWindow::testLog(void)
