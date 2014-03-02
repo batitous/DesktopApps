@@ -65,7 +65,7 @@
         <height>80</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0">
        <property name="spacing">
         <number>-1</number>
        </property>
@@ -111,9 +111,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="bMotor">
+         <property name="text">
+          <string>WARNING - MOTOR - WARNING</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="bTest">
          <property name="text">
-          <string>PushButton</string>
+          <string>TEST</string>
          </property>
         </widget>
        </item>

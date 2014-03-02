@@ -31,6 +31,8 @@ void ControlThread::run()
     UInt32 begin;
     UInt32 end;
 
+    return;
+
     Joystick* joystick = Joystick::instance();
     if (joystick==0)
     {

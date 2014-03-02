@@ -28,8 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(bConnect, SIGNAL(clicked()), this, SLOT(bConnectEvent()));
     connect(ui->bClear, SIGNAL(clicked()), this, SLOT(bClearEvent()));
     connect(ui->bTest, SIGNAL(clicked()), this, SLOT(bTestEvent()));
+    connect(ui->bMotor, SIGNAL(clicked()), this, SLOT(bMotorEvent()));
 
     mDrone = new Drone();
+    mCommunicate = false;
 
     mControl = new ControlThread(mDrone, (OpenGLScene*)ui->graphicsView->scene());
 
@@ -70,9 +72,10 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Scene rect:" << mControlScene->sceneRect();
     qDebug() << "View  rect:" << ui->gInstrument->sceneRect() << " size:" << ui->gInstrument->size();
 
+    mMotor = false;
 
-    mLoop = new LoopStream(128);
-    for(int i=0; i< 128; i++)
+    mLoop = new LoopStream(256);
+    for(int i=0; i< 256; i++)
     {
         mLoop->write((float)i);
     }
@@ -80,6 +83,13 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
     timer->start(100);
+
+
+    mPidDialog = new PidDialog(this);
+    mPidDialog->show();
+
+    connect(mPidDialog, SIGNAL(sendEvent(float * , int)), this, SLOT(bPidEvent(float *, int)) );
+
 }
 
 MainWindow::~MainWindow()
@@ -119,9 +129,57 @@ void MainWindow::timerUpdate()
         }*/
     }
 
-    mLoop->write( getRandomBetween(0,100));
+    if (mDrone->connected()==true)
+    {
+        float angle[10];
+        UInt16 size = 0;
 
-    timer->start(100);
+        // roll & pitch
+        //size = mDrone->read(0x4000, (UInt8*)&angle[0]);
+
+        //accel
+//        size = mDrone->read(0x6000, (UInt8*)&angle[0]);
+
+        //gyro
+ //       size = mDrone->read(0x6500, (UInt8*)&angle[0]);
+
+        if (mCommunicate==false)
+        {
+            mCommunicate = true;
+            size = mDrone->read(0x7000, (UInt8*)&angle[0]);
+            if (size != 0)
+            {
+    //            qDebug() << angle[2];
+                mLoop->write(angle[4]+ 100);
+            }
+
+            mCommunicate = false;
+        }
+    }
+    else
+    {
+        //mLoop->write( getRandomBetween(0,100));
+    }
+
+    timer->start(16);
+}
+
+void MainWindow::bPidEvent(float *coeff, int size)
+{
+    if (mCommunicate==true)
+    {
+        return;
+    }
+    mCommunicate = true;
+
+    qDebug() << "PID size: " << size << " Coeff:" << coeff[0];
+
+    if (mDrone->write(0x8000, (UInt8*)coeff, size)==false)
+    {
+        qDebug() << "FAILED TO WRITE PID COEFF";
+    }
+
+    mCommunicate = false;
 }
 
 void MainWindow::testLog(void)
@@ -132,10 +190,42 @@ void MainWindow::testLog(void)
 
 }
 
+void MainWindow::bMotorEvent(void)
+{
+    UInt32 temp;
+
+    if ( mCommunicate==true)
+        return;
+
+    mCommunicate = true;
+
+    if (mMotor==false)
+    {
+        qDebug() << "RUN";
+        temp = 1;
+        mDrone->write(0x5000,(UInt8 *)&temp, 4);
+        mMotor = true;
+    }
+    else
+    {
+        qDebug() << "STOP";
+        temp = 0;
+        mDrone->write(0x5000,(UInt8 *)&temp, 4);
+        mMotor = false;
+    }
+
+    mCommunicate = false;
+}
+
 void MainWindow::bTestEvent(void)
 {
-//    testLog();
 
+
+
+
+    testLog();
+
+/*
     float toto[2];
     toto[0] = 123.456;
     toto[1] = -987.6;

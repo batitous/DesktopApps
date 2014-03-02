@@ -6,6 +6,8 @@
 #include <QtWidgets/QPushButton>
 #include <QtCore/QTimer>
 
+#include "piddialog.h"
+
 #include "../../../common/include/desktopapp.h"
 #include "../../../common/include/desktopui.h"
 
@@ -33,7 +35,9 @@ private slots:
     void bConnectEvent(void);
     void bClearEvent(void);
     void bTestEvent(void);
+    void bMotorEvent(void);
     void timerUpdate();
+    void bPidEvent(float *, int);
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -49,6 +53,11 @@ private:
     LoopStream*     mLoop;
 
     QGraphicsScene * mControlScene;
+
+    PidDialog*      mPidDialog;
+
+    bool mCommunicate;
+    bool mMotor;
 
     Ui::MainWindow *ui;
 };

@@ -103,13 +103,18 @@ bool Drone::receiveAck(UInt32 sizeToReceive)
         return false;
     }
 
-    qDebug() << "Drone::receiveAck from" << mAck->from <<
+ /*   qDebug() << "Drone::receiveAck from" << mAck->from <<
                 " Result:" << mAck->result <<
                 " for Command:" << mAck->command <<
                 " Next bytes:" << mAck->sizeOfNextPacket;
-
-    if (mAck->command != DRONE_CMD_RESULT_OK)
+*/
+    if (mAck->result != DRONE_CMD_RESULT_OK)
     {
+        qDebug() << "Drone::receiveAck FAILED from" << mAck->from <<
+                       " Result:" << mAck->result <<
+                       " for Command:" << mAck->command <<
+                       " Next bytes:" << mAck->sizeOfNextPacket;
+
         qDebug() << "Drone::receiveAck COMMAND FAILED ON DRONE!";
         return false;
     }
@@ -134,6 +139,10 @@ bool Drone::requestLog(QString & string)
     }
 
     UInt16 size = ackPacket()->sizeOfNextPacket;
+
+    qDebug() << "==> Size of log: "<< size;
+
+    waitMs(50);
 
     if (size != 0)
     {

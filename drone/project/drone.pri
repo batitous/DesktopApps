@@ -33,7 +33,8 @@ HEADERS +=  ../../ui/MainWindow.h \
     ../../include/controlthread.h \
     ../../include/math-utils.h \
     ../../include/wInstrument.h \
-    ../../include/loopstream.h
+    ../../include/loopstream.h \
+    ../../ui/piddialog.h
 
 SOURCES +=  ../../source/main.cpp \
     ../../ui/MainWindow.cpp \
@@ -43,9 +44,11 @@ SOURCES +=  ../../source/main.cpp \
     ../../source/joystick.cpp \
     ../../source/controlthread.cpp \
     ../../source/math-utils.cpp \
-    ../../source/loopstream.cpp
+    ../../source/loopstream.cpp \
+    ../../ui/piddialog.cpp
 
-FORMS   += ../../ui/MainWindow.ui
+FORMS   += ../../ui/MainWindow.ui \
+    ../../ui/piddialog.ui
 
 
 mac {
