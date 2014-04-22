@@ -6,6 +6,7 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QSettings>
 #include <QtCore/QDebug>
+#include <QtCore/QThread>
 
 #include "recentfiles.h"
 #include "utils.h"
@@ -22,6 +23,12 @@ public:
     void init(const QString & companyName, const QString & applicatioName);
 
     bool event(QEvent *event);
+
+    /* The object parameters must have :
+     *  - a slot to start the object's code : void start();
+     *  - a signal when finish Q_SIGNALS: void finished();
+     */
+    static QThread* launchObjectInThread(QObject* object);
 
     static QSettings* settings();
     static RecentFiles* recentfiles();

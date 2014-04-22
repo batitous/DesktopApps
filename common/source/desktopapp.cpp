@@ -162,3 +162,20 @@ bool DesktopApp::event(QEvent *event)
 
     return QApplication::event(event);
 }
+
+
+QThread* DesktopApp::launchObjectInThread(QObject* object)
+{
+    QThread* thread = new QThread;
+
+    object->moveToThread(thread);
+
+    connect(thread, SIGNAL(started()), object, SLOT(start()));
+    connect(object, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(object, SIGNAL(finished()), object, SLOT(deleteLater()));
+    connect(object, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    thread->start();
+
+    return thread;
+}
