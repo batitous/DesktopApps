@@ -25,6 +25,16 @@ MainWindow::MainWindow(QWidget *parent) :
     lStatusBar->setAlignment(Qt::AlignRight);
     ui->statusbar->insertWidget(0, lStatusBar, 1);
 
+    mAngleWanted = 0;
+
+    QStringList angleList;
+    angleList.append("Angle X");
+    angleList.append("Angle Y");
+    angleList.append("Angle Z");
+    ui->comboAngle->addItems( angleList);
+
+    connect(ui->comboAngle, SIGNAL(activated(int)), this, SLOT(comboAngleEvent(int)) );
+
     connect(bConnect, SIGNAL(clicked()), this, SLOT(bConnectEvent()));
     connect(ui->bClear, SIGNAL(clicked()), this, SLOT(bClearEvent()));
     connect(ui->bTest, SIGNAL(clicked()), this, SLOT(bTestEvent()));
@@ -32,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mDrone = new Drone();
     mCommunicate = false;
+    mError = false;
 
     mControl = new ControlThread(mDrone, (OpenGLScene*)ui->graphicsView->scene());
 
@@ -89,12 +100,18 @@ MainWindow::MainWindow(QWidget *parent) :
     mPidDialog->show();
 
     connect(mPidDialog, SIGNAL(sendEvent(float * , int)), this, SLOT(bPidEvent(float *, int)) );
-
+    connect(mPidDialog, SIGNAL(calibEvent(float * , int)), this, SLOT(bCalibEvent(float *, int)) );
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::comboAngleEvent(int index)
+{
+    qDebug() << "==> Set new angle to " << index;
+    mAngleWanted = index;
 }
 
 void MainWindow::timerUpdate()
@@ -134,26 +151,63 @@ void MainWindow::timerUpdate()
         float angle[10];
         UInt16 size = 0;
 
-        // roll & pitch
-        //size = mDrone->read(0x4000, (UInt8*)&angle[0]);
-
-        //accel
-//        size = mDrone->read(0x6000, (UInt8*)&angle[0]);
-
-        //gyro
- //       size = mDrone->read(0x6500, (UInt8*)&angle[0]);
-
-        if (mCommunicate==false)
+        if (mError==false)
         {
-            mCommunicate = true;
-            size = mDrone->read(0x7000, (UInt8*)&angle[0]);
-            if (size != 0)
+            if (mCommunicate==false)
             {
-    //            qDebug() << angle[2];
-                mLoop->write(angle[4]+ 100);
-            }
+                mCommunicate = true;
 
-            mCommunicate = false;
+                // yaw & roll & pitch
+               //size = mDrone->read(0x4000, (UInt8*)&angle[0]);
+
+
+                // debug data vector
+                 size = mDrone->read(0x9000, (UInt8*)&angle[0]);
+
+                //accel
+               //size = mDrone->read(0x6000, (UInt8*)&angle[0]);
+
+                //gyro
+                //size = mDrone->read(0x6500, (UInt8*)&angle[0]);
+
+                // pid
+    //            size = mDrone->read(0x7000, (UInt8*)&angle[0]);
+                if (size != 0)
+                {
+                    // yaw roll pitch
+    //                qDebug() << angle[mAngleWanted];
+      //              mLoop->write(angle[mAngleWanted] + 100);
+
+                    // debug data vector
+                    qDebug() << angle[mAngleWanted];
+
+    //                angle[mAngleWanted] = angle[mAngleWanted] - 177;
+                    mLoop->write(angle[mAngleWanted]*100 + 100 );
+
+                   // angle[mAngleWanted] = angle[mAngleWanted]-300;
+                   // mLoop->write(angle[mAngleWanted]*5.0 /*+100*/);
+
+
+                    // accel
+                    //mLoop->write(angle[0]*100 + 100);
+
+                    // gyro
+                    //mLoop->write(angle[1] /2 + 100);
+
+                    //pid
+                    //mLoop->write(angle[4]+ 100);
+                }
+                else
+                {
+                    mError = true;
+                }
+
+                mCommunicate = false;
+            }
+        }
+        else
+        {
+            mError = false;
         }
     }
     else
@@ -161,7 +215,7 @@ void MainWindow::timerUpdate()
         //mLoop->write( getRandomBetween(0,100));
     }
 
-    timer->start(16);
+    timer->start(33);
 }
 
 void MainWindow::bPidEvent(float *coeff, int size)
@@ -177,6 +231,24 @@ void MainWindow::bPidEvent(float *coeff, int size)
     if (mDrone->write(0x8000, (UInt8*)coeff, size)==false)
     {
         qDebug() << "FAILED TO WRITE PID COEFF";
+    }
+
+    mCommunicate = false;
+}
+
+void MainWindow::bCalibEvent(float *coeff, int size)
+{
+    if (mCommunicate==true)
+    {
+        return;
+    }
+    mCommunicate = true;
+
+    qDebug() << "Calibration angle size: " << size << " Angle:" << coeff[0];
+
+    if (mDrone->write(0x4500, (UInt8*)coeff, size)==false)
+    {
+        qDebug() << "FAILED TO WRITE ANGLE CALIB";
     }
 
     mCommunicate = false;

@@ -38,6 +38,8 @@ private slots:
     void bMotorEvent(void);
     void timerUpdate();
     void bPidEvent(float *, int);
+    void bCalibEvent(float *, int);
+    void comboAngleEvent(int);
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -56,6 +58,9 @@ private:
 
     PidDialog*      mPidDialog;
 
+    int mAngleWanted;
+
+    bool mError;
     bool mCommunicate;
     bool mMotor;
 

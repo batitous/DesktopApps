@@ -6,119 +6,384 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>652</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDoubleSpinBox" name="rollRate">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>10</y>
-     <width>70</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="rollRateKp">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>120</y>
-     <width>70</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>10</y>
-     <width>62</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Roll Kp</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>120</y>
-     <width>101</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Roll Rate Kp</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="bSend">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>170</y>
+     <x>70</x>
+     <y>310</y>
      <width>115</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
-    <string>SEND</string>
+    <string>WRITE PID</string>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="rollKi">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>50</y>
-     <width>70</width>
-     <height>24</height>
+     <x>10</x>
+     <y>10</y>
+     <width>181</width>
+     <height>121</height>
     </rect>
    </property>
+   <property name="title">
+    <string>ROLL ANGLE (on led-radio axis)</string>
+   </property>
+   <widget class="QDoubleSpinBox" name="rollKd">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>90</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="rollKi">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>60</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="rollKp">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>30</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>62</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Roll Kp</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Roll  Ki</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Roll  Kd</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>50</y>
-     <width>101</width>
-     <height>19</height>
+     <x>200</x>
+     <y>10</y>
+     <width>181</width>
+     <height>121</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Roll  Ki</string>
+   <property name="title">
+    <string>PITCH ANGLE</string>
    </property>
+   <widget class="QDoubleSpinBox" name="pitchKd">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>90</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="pitchKi">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>60</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="pitchKp">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>30</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>62</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pitch Kp</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pitch Ki</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pitch  Kd</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>80</y>
-     <width>101</width>
-     <height>19</height>
+     <x>10</x>
+     <y>130</y>
+     <width>241</width>
+     <height>151</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Roll  Kd</string>
+   <property name="title">
+    <string>PID RATE</string>
    </property>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>81</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Roll Rate Kp</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="rollRateKp">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>30</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-1000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="pitchRateKp">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>100</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-1000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>999.990000000000009</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>91</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pitch Rate Kp</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QDoubleSpinBox" name="rollKd">
+  <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>80</y>
-     <width>70</width>
-     <height>24</height>
+     <x>370</x>
+     <y>270</y>
+     <width>261</width>
+     <height>131</height>
     </rect>
    </property>
+   <property name="title">
+    <string>Wtf ?</string>
+   </property>
+   <widget class="QPushButton" name="bCalib">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>100</y>
+      <width>115</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CALIB ANGLE</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="angleRoll">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>70</y>
+      <width>101</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="minimum">
+     <double>-1000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="anglePitch">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>40</y>
+      <width>101</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>3</number>
+    </property>
+    <property name="minimum">
+     <double>-1000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PITCH CALIB ANGLE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ROLL CALIB ANGLE</string>
+    </property>
+   </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>rollKp</tabstop>
+  <tabstop>rollKi</tabstop>
+  <tabstop>rollKd</tabstop>
+  <tabstop>pitchKp</tabstop>
+  <tabstop>pitchKi</tabstop>
+  <tabstop>pitchKd</tabstop>
+  <tabstop>rollRateKp</tabstop>
+  <tabstop>pitchRateKp</tabstop>
+  <tabstop>bSend</tabstop>
+  <tabstop>anglePitch</tabstop>
+  <tabstop>angleRoll</tabstop>
+  <tabstop>bCalib</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

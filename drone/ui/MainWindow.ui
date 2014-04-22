@@ -101,10 +101,25 @@
            </widget>
           </item>
           <item>
-           <widget class="QGraphicsView" name="gInstrument">
-            <property name="viewportUpdateMode">
-             <enum>QGraphicsView::FullViewportUpdate</enum>
+           <widget class="QWidget" name="widget_2" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QComboBox" name="comboAngle"/>
+             </item>
+             <item>
+              <widget class="QGraphicsView" name="gInstrument">
+               <property name="viewportUpdateMode">
+                <enum>QGraphicsView::FullViewportUpdate</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

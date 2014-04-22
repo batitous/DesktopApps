@@ -17,12 +17,13 @@ public:
 
  signals:
     void sendEvent(float *coeff, int size);
-
+    void calibEvent(float *coeff, int size);
 private slots:
     void bSendEvent();
+    void bCalibEvent();
 
 private:
-    #define COEFF_SIZE 4
+    #define COEFF_SIZE 8
 
     float mCoeff[COEFF_SIZE];
 
