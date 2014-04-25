@@ -16,7 +16,9 @@ HEADERS +=  $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
             $$COMMON_PATH/ui/uploadwidget.h \
             $$COMMON_PATH/ui/dialog.h \
             $$COMMON_PATH/ui/comportwidget.h \
-            $$COMMON_PATH/include/radiouart.h
+            $$COMMON_PATH/include/radiouart.h \
+            $$COMMON_PATH/include/fsm.h \
+            $$COMMON_PATH/include/queue.h
 
 SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
             $$COMMON_PATH/source/firmware/firmwareupdate.cpp \
@@ -25,7 +27,8 @@ SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
             $$COMMON_PATH/source/recentfiles.cpp \
             $$COMMON_PATH/ui/uploadwidget.cpp \
             $$COMMON_PATH/ui/dialog.cpp \
-            $$COMMON_PATH/ui/comportwidget.cpp
+            $$COMMON_PATH/ui/comportwidget.cpp \
+            $$COMMON_PATH/source/fsm.cpp
 
 FORMS +=    $$COMMON_PATH/ui/uploadwidget.ui \
             $$COMMON_PATH/ui/dialog.ui \

@@ -11,6 +11,8 @@
 #include "recentfiles.h"
 #include "utils.h"
 #include "radiouart.h"
+#include "fsm.h"
+#include "queue.h"
 
 class DesktopApp : public QApplication
 {
