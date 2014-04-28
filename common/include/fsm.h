@@ -1,4 +1,4 @@
-
+// Baptiste Burles, Kliplab, 2014
 #ifndef KLIP_FRAMEWORK_FSM_H
 #define KLIP_FRAMEWORK_FSM_H
 

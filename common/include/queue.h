@@ -1,3 +1,4 @@
+// Baptiste Burles, Kliplab, 2014
 #ifndef QUEUE_H
 #define QUEUE_H
 
