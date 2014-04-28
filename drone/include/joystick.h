@@ -18,7 +18,7 @@ public:
     const Point3d & values();
 
 private:
-    Joystick(UInt32 idx);
+    Joystick(uint32_t idx);
 
     sf::Joystick::Axis        mX;
     sf::Joystick::Axis        mY;
@@ -26,7 +26,7 @@ private:
 
     Point3d     mValues;
 
-    UInt32      mIndex;
+    uint32_t      mIndex;
 
     static Joystick* joystick;
 };

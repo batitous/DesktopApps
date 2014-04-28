@@ -30,9 +30,9 @@ RadioUart::~RadioUart()
 {
 }
 
-bool RadioUart::getUartByte(UInt8 * b)
+bool RadioUart::getUartByte(uint8_t * b)
 {
-    UInt32 timeout = 24;
+    uint32_t timeout = 24;
 
     while (getByteFromUARTNoWait(b)!=0)
     {
@@ -48,9 +48,9 @@ bool RadioUart::getUartByte(UInt8 * b)
 }
 
 
-bool RadioUart::uartWrite(UInt8 *buffer, UInt32 size)
+bool RadioUart::uartWrite(uint8_t *buffer, uint32_t size)
 {
-    UInt32 result = sendBufferToUART(buffer, size);
+    uint32_t result = sendBufferToUART(buffer, size);
 
     if (result!=UART_OK)
     {
@@ -61,9 +61,9 @@ bool RadioUart::uartWrite(UInt8 *buffer, UInt32 size)
     return true;
 }
 
-UInt32 RadioUart::uartRead(UInt8 *buffer, UInt32 size)
+uint32_t RadioUart::uartRead(uint8_t *buffer, uint32_t size)
 {
-    UInt32 counter;
+    uint32_t counter;
 
     for( counter=0 ; counter != size; counter++)
     {
@@ -79,9 +79,9 @@ UInt32 RadioUart::uartRead(UInt8 *buffer, UInt32 size)
 
 bool RadioUart::open(const QString & specific)
 {
-    UInt8 b;
-    UInt8 * comport = (UInt8 *)specific.toLatin1().constData();
-    UInt32 result = initUART(comport, 115200);
+    uint8_t b;
+    char * comport = (char *)specific.toLatin1().constData();
+    uint32_t result = initUART(comport, 115200);
 
     if (result!=UART_OK)
     {
@@ -97,14 +97,14 @@ bool RadioUart::open(const QString & specific)
     return true;
 }
 
-bool RadioUart::write(UInt8 *buffer, UInt32 size)
+bool RadioUart::write(uint8_t *buffer, uint32_t size)
 {
-    UInt32 pkSize = RADIO_BUFFER_SIZE-1;
-    UInt32 pkNumber = size / pkSize;
-    UInt32 remind = size - (pkNumber * pkSize);
-    UInt32 i;
-    UInt8* ptr;
-    UInt8 flag;
+    uint32_t pkSize = RADIO_BUFFER_SIZE-1;
+    uint32_t pkNumber = size / pkSize;
+    uint32_t remind = size - (pkNumber * pkSize);
+    uint32_t i;
+    uint8_t* ptr;
+    uint8_t flag;
 
     ptr = buffer;
     for (i=0; i < pkNumber; i++)
@@ -156,17 +156,17 @@ bool RadioUart::write(UInt8 *buffer, UInt32 size)
     return true;
 }
 
-UInt32 RadioUart::read(UInt8 *buffer, UInt32 size)
+uint32_t RadioUart::read(uint8_t *buffer, uint32_t size)
 {
-    UInt32 pkSize = RADIO_BUFFER_SIZE-1;
-    UInt32 pkNumber = size / pkSize;
-    UInt32 remind = size - (pkNumber * pkSize);
-    UInt32 i;
-    UInt8* ptr;
+    uint32_t pkSize = RADIO_BUFFER_SIZE-1;
+    uint32_t pkNumber = size / pkSize;
+    uint32_t remind = size - (pkNumber * pkSize);
+    uint32_t i;
+    uint8_t* ptr;
 
-    UInt8 sizeRcv;
+    uint8_t sizeRcv;
 
-    UInt32 timeout = 4;
+    uint32_t timeout = 4;
 
     ptr = buffer;
     for (i=0; i < pkNumber; i++)

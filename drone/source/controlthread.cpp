@@ -28,8 +28,8 @@ void ControlThread::run()
 {
     qDebug() << "ControlThread::run is now running !";
 
-    UInt32 begin;
-    UInt32 end;
+    uint32_t begin;
+    uint32_t end;
 
     return;
 

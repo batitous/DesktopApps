@@ -42,7 +42,7 @@ QString Utils::getPortCom(QString subkey, QString key)
     LPTSTR lpSubKey, pKey;
 //	PTSTR  lpSubKey[256], pKey[256];
     LONG lResult;
-    UInt8 data[256];
+    uint8_t data[256];
     DWORD size;
     int i,j;
 
@@ -124,7 +124,7 @@ QString Utils::getSpecialRepertory(int rep)
 {
    TCHAR szPath[MAX_PATH];
    QString value = "";
-   UInt32 i;
+   uint32_t i;
 
    if ( SUCCEEDED( SHGetFolderPath( NULL, rep,NULL, SHGFP_TYPE_CURRENT, szPath ) ) )
    {

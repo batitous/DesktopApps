@@ -149,7 +149,7 @@ void MainWindow::timerUpdate()
     if (mDrone->connected()==true)
     {
         float angle[10];
-        UInt16 size = 0;
+        uint16_t size = 0;
 
         if (mError==false)
         {
@@ -158,20 +158,20 @@ void MainWindow::timerUpdate()
                 mCommunicate = true;
 
                 // yaw & roll & pitch
-               //size = mDrone->read(0x4000, (UInt8*)&angle[0]);
+               //size = mDrone->read(0x4000, (uint8_t*)&angle[0]);
 
 
                 // debug data vector
-                 size = mDrone->read(0x9000, (UInt8*)&angle[0]);
+                 size = mDrone->read(0x9000, (uint8_t*)&angle[0]);
 
                 //accel
-               //size = mDrone->read(0x6000, (UInt8*)&angle[0]);
+               //size = mDrone->read(0x6000, (uint8_t*)&angle[0]);
 
                 //gyro
-                //size = mDrone->read(0x6500, (UInt8*)&angle[0]);
+                //size = mDrone->read(0x6500, (uint8_t*)&angle[0]);
 
                 // pid
-    //            size = mDrone->read(0x7000, (UInt8*)&angle[0]);
+    //            size = mDrone->read(0x7000, (uint8_t*)&angle[0]);
                 if (size != 0)
                 {
                     // yaw roll pitch
@@ -228,7 +228,7 @@ void MainWindow::bPidEvent(float *coeff, int size)
 
     qDebug() << "PID size: " << size << " Coeff:" << coeff[0];
 
-    if (mDrone->write(0x8000, (UInt8*)coeff, size)==false)
+    if (mDrone->write(0x8000, (uint8_t*)coeff, size)==false)
     {
         qDebug() << "FAILED TO WRITE PID COEFF";
     }
@@ -246,7 +246,7 @@ void MainWindow::bCalibEvent(float *coeff, int size)
 
     qDebug() << "Calibration angle size: " << size << " Angle:" << coeff[0];
 
-    if (mDrone->write(0x4500, (UInt8*)coeff, size)==false)
+    if (mDrone->write(0x4500, (uint8_t*)coeff, size)==false)
     {
         qDebug() << "FAILED TO WRITE ANGLE CALIB";
     }
@@ -264,7 +264,7 @@ void MainWindow::testLog(void)
 
 void MainWindow::bMotorEvent(void)
 {
-    UInt32 temp;
+    uint32_t temp;
 
     if ( mCommunicate==true)
         return;
@@ -275,14 +275,14 @@ void MainWindow::bMotorEvent(void)
     {
         qDebug() << "RUN";
         temp = 1;
-        mDrone->write(0x5000,(UInt8 *)&temp, 4);
+        mDrone->write(0x5000,(uint8_t *)&temp, 4);
         mMotor = true;
     }
     else
     {
         qDebug() << "STOP";
         temp = 0;
-        mDrone->write(0x5000,(UInt8 *)&temp, 4);
+        mDrone->write(0x5000,(uint8_t *)&temp, 4);
         mMotor = false;
     }
 
@@ -304,7 +304,7 @@ void MainWindow::bTestEvent(void)
 
     qDebug() << "==> Write to memory !";
 
-    if (mDrone->write(0x3020, (UInt8*)&toto[0], 8)==false)
+    if (mDrone->write(0x3020, (uint8_t*)&toto[0], 8)==false)
     {
         qDebug() << "FAILED TO WRITE DATA TO DRONE!";
     }
@@ -313,7 +313,7 @@ void MainWindow::bTestEvent(void)
 
     qDebug() << "==> Read from memory !";
 
-    UInt16 size = mDrone->read(0x3024, (UInt8*)&toto[0]);
+    uint16_t size = mDrone->read(0x3024, (uint8_t*)&toto[0]);
 
     qDebug() << "Size received=" << size;
     qDebug() << "Toto" << toto[0] << " next:" << toto[1];

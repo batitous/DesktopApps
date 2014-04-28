@@ -19,20 +19,20 @@ public:
 
     void close();
 
-    bool write(UInt8 *buffer, UInt32 size);
+    bool write(uint8_t *buffer, uint32_t size);
 
-    UInt32 read(UInt8 *buffer, UInt32 size);
+    uint32_t read(uint8_t *buffer, uint32_t size);
 
 private:
     RadioUart(void);
 
     static RadioUart* radioUart;
 
-    UInt8 linkBuffer[RADIO_BUFFER_SIZE];
+    uint8_t linkBuffer[RADIO_BUFFER_SIZE];
 
-    bool getUartByte(UInt8 * b);
-    bool uartWrite(UInt8 *buffer, UInt32 size);
-    UInt32 uartRead(UInt8 *buffer, UInt32 size);
+    bool getUartByte(uint8_t * b);
+    bool uartWrite(uint8_t *buffer, uint32_t size);
+    uint32_t uartRead(uint8_t *buffer, uint32_t size);
 };
 
 #endif // RADIOUART_H

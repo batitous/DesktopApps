@@ -9,11 +9,11 @@
 
 typedef struct _ack_packet_
 {
-    UInt8 from;
-    UInt8 to;
+    uint8_t from;
+    uint8_t to;
     DroneCmd command;
     DroneCmdResult result;
-    UInt16  sizeOfNextPacket;
+    uint16_t  sizeOfNextPacket;
 } AckPacket;
 
 class Drone
@@ -27,13 +27,13 @@ public:
 
     bool requestLog(QString & string);
 
-    bool write(UInt16 address, UInt8* buffer, UInt16 size);
+    bool write(uint16_t address, uint8_t* buffer, uint16_t size);
 
-    UInt16 read(UInt16 address, UInt8* buffer);
+    uint16_t read(uint16_t address, uint8_t* buffer);
 
 
     AckPacket*  ackPacket();
-    void extractContent(UInt8* buffer, UInt32 size);
+    void extractContent(uint8_t* buffer, uint32_t size);
 
 
 private:
@@ -44,14 +44,14 @@ private:
 
     AckPacket* mAck;
 
-    UInt8           mLog[512];
+    uint8_t           mLog[512];
 
 
-    void buildDefaultHeader(DroneCmd command, UInt16 sizeIWantForNextPacket);
+    void buildDefaultHeader(DroneCmd command, uint16_t sizeIWantForNextPacket);
     void buildEndOfHeader();
     bool sendHeader();
 
-    bool receiveAck(UInt32 sizeToReceive);
+    bool receiveAck(uint32_t sizeToReceive);
     bool extractAck();
 };
 

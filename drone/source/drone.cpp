@@ -4,12 +4,12 @@
 
 Drone::Drone()
 {
-    UInt8* temp;
+    uint8_t* temp;
 
-    temp = (UInt8*)malloc(DRONE_STREAM_SIZE);
+    temp = (uint8_t*)malloc(DRONE_STREAM_SIZE);
     mInput = newByteStream(temp);
 
-    temp = (UInt8*)malloc(DRONE_STREAM_SIZE);
+    temp = (uint8_t*)malloc(DRONE_STREAM_SIZE);
     mOutput = newByteStream(temp);
 
     isOpen = false;
@@ -55,9 +55,9 @@ void Drone::connect()
     }
 }
 
-void Drone::buildDefaultHeader(DroneCmd command, UInt16 sizeIWantForNextPacket)
+void Drone::buildDefaultHeader(DroneCmd command, uint16_t sizeIWantForNextPacket)
 {
-    UInt8 address = SET_ADDRESS(MASTER, DRONE);
+    uint8_t address = SET_ADDRESS(MASTER, DRONE);
 
     resetByteStream(mOutput);
     write4ToByteStream(mOutput, DRONE_PK_MAGIC);
@@ -76,7 +76,7 @@ void Drone::buildEndOfHeader()
 
 bool Drone::sendHeader()
 {
-    UInt32 size = getByteStreamSize(mOutput);
+    uint32_t size = getByteStreamSize(mOutput);
 
     if (RadioUart::instance()->write(mOutput->buffer, size)==false)
     {
@@ -87,7 +87,7 @@ bool Drone::sendHeader()
     return true;
 }
 
-bool Drone::receiveAck(UInt32 sizeToReceive)
+bool Drone::receiveAck(uint32_t sizeToReceive)
 {
     resetByteStream(mInput);
 
@@ -138,7 +138,7 @@ bool Drone::requestLog(QString & string)
         return false;
     }
 
-    UInt16 size = ackPacket()->sizeOfNextPacket;
+    uint16_t size = ackPacket()->sizeOfNextPacket;
 
     qDebug() << "==> Size of log: "<< size;
 
@@ -169,7 +169,7 @@ bool Drone::requestLog(QString & string)
     return true;
 }
 
-bool Drone::write(UInt16 address, UInt8* buffer, UInt16 size)
+bool Drone::write(uint16_t address, uint8_t* buffer, uint16_t size)
 {
     buildDefaultHeader(DRONE_CMD_MEMORY, size);
     buildEndOfHeader();
@@ -196,7 +196,7 @@ bool Drone::write(UInt16 address, UInt8* buffer, UInt16 size)
     return receiveAck(DRONE_PK_ACK_SIZE);
 }
 
-UInt16 Drone::read(UInt16 address, UInt8* buffer)
+uint16_t Drone::read(uint16_t address, uint8_t* buffer)
 {
     buildDefaultHeader(DRONE_CMD_MEMORY, 2);
     write2ToByteStream(mOutput, address);
@@ -212,7 +212,7 @@ UInt16 Drone::read(UInt16 address, UInt8* buffer)
         return 0;
     }
 
-    UInt16 size = ackPacket()->sizeOfNextPacket;
+    uint16_t size = ackPacket()->sizeOfNextPacket;
 
     buildDefaultHeader(DRONE_CMD_MEMORY,size);
     buildEndOfHeader();
@@ -235,14 +235,14 @@ UInt16 Drone::read(UInt16 address, UInt8* buffer)
 
 bool Drone::extractAck()
 {
-    UInt32 magic = read4FromByteStream(mInput);
+    uint32_t magic = read4FromByteStream(mInput);
     if (magic!=DRONE_PK_MAGIC)
     {
         qDebug() << "Drone::extractAck error: wrong magic packet " << magic;
         return false;
     }
 
-    UInt8 address = read1FromByteStream(mInput);
+    uint8_t address = read1FromByteStream(mInput);
 
     mAck->from = GET_SENDER(address);
     mAck->to = GET_RECEIVER(address);
@@ -253,7 +253,7 @@ bool Drone::extractAck()
     return true;
 }
 
-void Drone::extractContent(UInt8* buffer, UInt32 size)
+void Drone::extractContent(uint8_t* buffer, uint32_t size)
 {
     readBufferFromByteStream(mInput, buffer, size);
 }

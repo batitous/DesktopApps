@@ -11,10 +11,10 @@ public:
     ~NxpUpdateFirmware();
 
     bool upload(QString pPortCom);
-    UInt32 getUploadProgress();
+    uint32_t getUploadProgress();
 
 private:
-    UInt32		mBaudrate;
+    uint32_t	mBaudrate;
     QString		mErrorMsg[4];
 
 };

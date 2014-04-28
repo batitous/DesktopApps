@@ -24,9 +24,9 @@ NxpUpdateFirmware::~NxpUpdateFirmware()
 
 bool NxpUpdateFirmware::upload(QString pPortCom)
 {
-    UInt32 result;
+    uint32_t result;
 
-    result = (UInt32)uploadToLpc21((char *)pPortCom.toLatin1().constData(),
+    result = (uint32_t)uploadToLpc21((char *)pPortCom.toLatin1().constData(),
                 (char *)this->mFileToUpload.toLatin1().constData()
                 );
 
@@ -60,7 +60,7 @@ bool NxpUpdateFirmware::upload(QString pPortCom)
     return true;
 }
 
-UInt32 NxpUpdateFirmware::getUploadProgress()
+uint32_t NxpUpdateFirmware::getUploadProgress()
 {
     return getUploadStatus();
 }

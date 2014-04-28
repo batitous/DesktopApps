@@ -8,7 +8,7 @@
 Joystick* Joystick::joystick = 0;
 
 
-Joystick::Joystick(UInt32 idx)
+Joystick::Joystick(uint32_t idx)
 {
     mIndex = idx;
 

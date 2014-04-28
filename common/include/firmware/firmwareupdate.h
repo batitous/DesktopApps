@@ -31,12 +31,12 @@ public:
 
 protected:
     virtual bool upload(QString pPortCom) = 0;
-    virtual UInt32 getUploadProgress() = 0;
+    virtual uint32_t getUploadProgress() = 0;
 
     QString			mFileToUpload;	/**< file to upload into memory */
     QString			mError;			/**< error message */
     bool			mStop;			/**< stop upload */
-    UInt32			mIncrement;
+    uint32_t        mIncrement;
 
 private:
     void run();
