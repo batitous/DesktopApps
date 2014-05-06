@@ -7,6 +7,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSysInfo>
+#include <QtCore/QSettings>
 
 int Utils::getListOfPortCom(QStringList *portCombo)
 {
@@ -104,12 +105,6 @@ QString Utils::getAppDirPath()
     return QCoreApplication::applicationDirPath();
 }
 
-/*QString Utils::getCommonUserDataPath()
-{
-    return getSpecialRepertory(CSIDL_COMMON_APPDATA);
-}
-*/
-
 QString Utils::getUserDataPath()
 {
     return getSpecialRepertory(CSIDL_APPDATA/*CSIDL_LOCAL_APPDATA*/);
@@ -117,7 +112,7 @@ QString Utils::getUserDataPath()
 
 QString Utils::getTempDataPath()
 {
-    return Utils::getUserData();
+    return Utils::getUserDataPath();
 }
 
 QString Utils::getSpecialRepertory(int rep)
@@ -135,8 +130,13 @@ QString Utils::getSpecialRepertory(int rep)
         }
    }
 
-   //TODO add application name
+
+
+   value = value + "\\" + QCoreApplication::organizationName() + "\\" + QCoreApplication::applicationName();
+
    qDebug() << "Utils::getSpecialRepertory TODO " << value;
+
+
 
    return value;
 }

@@ -50,5 +50,14 @@ unix:!mac {
 
 win32 {
     SOURCES += $$COMMON_PATH/source/utilswin32.cpp
+
+   LIBS += $$COMMON_PATH/libs/lpc2isp/lpc2isp.lib
+
+# Visual studio library
+#    LIBS += $$BABCODE_PATH/project/win32/libbabcode-win32.lib
+
+# Mingw gcc library
+    LIBS += -L$$BABCODE_PATH/project/win32/bin/Release -lbabcode -lws2_32 -liphlpapi
+
 }
 
