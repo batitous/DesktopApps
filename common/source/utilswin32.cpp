@@ -130,13 +130,7 @@ QString Utils::getSpecialRepertory(int rep)
         }
    }
 
-
-
    value = value + "\\" + QCoreApplication::organizationName() + "\\" + QCoreApplication::applicationName();
-
-   qDebug() << "Utils::getSpecialRepertory TODO " << value;
-
-
 
    return value;
 }
