@@ -74,6 +74,18 @@ public:
         return true;
     }
 
+    void read(QueueType *array, uint32_t want)
+    {
+        QueueType * ptr = array;
+        uint32_t size = mSize -1;
+        for(uint32_t i=0;i<want;i++)
+        {
+            *ptr = mPending[mHead & (size)];
+            ptr++;
+            mHead++;
+        }
+    }
+
 private:
     uint32_t    mHead;  /**< queue head */
     uint32_t    mTail;  /**< queue tail */

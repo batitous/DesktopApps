@@ -182,7 +182,9 @@ void MainWindow::timerUpdate()
                     qDebug() << angle[mAngleWanted];
 
     //                angle[mAngleWanted] = angle[mAngleWanted] - 177;
-                    mLoop->write(angle[mAngleWanted]*100 + 100 );
+//                    mLoop->write(angle[mAngleWanted]*100 + 100 );
+
+                     mLoop->write(angle[mAngleWanted]*100 - 3200 );
 
                    // angle[mAngleWanted] = angle[mAngleWanted]-300;
                    // mLoop->write(angle[mAngleWanted]*5.0 /*+100*/);
