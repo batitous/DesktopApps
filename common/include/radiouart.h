@@ -28,6 +28,7 @@ private:
 
     static RadioUart* radioUart;
 
+    Uart   mUart;
     uint8_t linkBuffer[RADIO_BUFFER_SIZE];
 
     bool getUartByte(uint8_t * b);

@@ -34,7 +34,7 @@ bool RadioUart::getUartByte(uint8_t * b)
 {
     uint32_t timeout = 24;
 
-    while (getByteFromUARTNoWait(b)!=0)
+    while (getByteFromUARTNoWait(&mUart, b)!=0)
     {
         timeout--;
 
@@ -50,7 +50,7 @@ bool RadioUart::getUartByte(uint8_t * b)
 
 bool RadioUart::uartWrite(uint8_t *buffer, uint32_t size)
 {
-    uint32_t result = sendBufferToUART(buffer, size);
+    uint32_t result = sendBufferToUART(&mUart,buffer, size);
 
     if (result!=UART_OK)
     {
@@ -81,7 +81,7 @@ bool RadioUart::open(const QString & specific)
 {
     uint8_t b;
     char * comport = (char *)specific.toLatin1().constData();
-    uint32_t result = initUART(comport, 115200);
+    uint32_t result = initUART(&mUart,comport, 115200);
 
     if (result!=UART_OK)
     {
@@ -90,7 +90,7 @@ bool RadioUart::open(const QString & specific)
     }
 
     // clean uart
-    while (getByteFromUARTNoWait(&b)==0)
+    while (getByteFromUARTNoWait(&mUart,&b)==0)
     {
     }
 
@@ -247,5 +247,5 @@ uint32_t RadioUart::read(uint8_t *buffer, uint32_t size)
 
 void RadioUart::close(void)
 {
-    closeUART();
+    closeUART(&mUart);
 }
