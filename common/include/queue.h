@@ -47,6 +47,7 @@ public:
         uint32_t size = mSize-1;
         if ( ((mTail+1) & (size)) == ((mHead) & (size)) )
         {
+            qDebug() << "Queue::write full !";
             return false;
         }
 
