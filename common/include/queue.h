@@ -29,6 +29,15 @@ public:
     }
 
     /**
+     * @brief Reset the internal state of the queue
+     */
+    void reset()
+    {
+        mHead = 0;
+        mTail = 0;
+    }
+
+    /**
      * @brief Get number of element in queue
      * @return
      */
