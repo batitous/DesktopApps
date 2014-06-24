@@ -84,6 +84,11 @@ public:
         return true;
     }
 
+    /**
+     * @brief Read multiple values from the queue
+     * @param array     Array where store the values
+     * @param want      Number of values to be read
+     */
     void read(QueueType *array, uint32_t want)
     {
         QueueType * ptr = array;

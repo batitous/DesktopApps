@@ -53,11 +53,11 @@ protected:
     void set(int newstate, FsmCallback call, FsmCallback init);
 
 
-    int mCurrent;
-    int mOld;
-    bool mInit;
-    FsmCallback mInitCall;
-    FsmCallback mCall;
+    int mCurrent;           /**< Current state of the automate */
+    int mOld;               /**< Previous state */
+    bool mInit;             /**< Init the state */
+    FsmCallback mInitCall;  /**< Initializer's code */
+    FsmCallback mCall;      /**< Updater's code */
 };
 
 
