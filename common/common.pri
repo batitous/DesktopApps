@@ -10,7 +10,6 @@ HEADERS +=  $$COMMON_PATH/include/desktopapp.h \
             $$COMMON_PATH/include/desktopui.h \
             $$COMMON_PATH/include/utils.h \
             $$COMMON_PATH/include/recentfiles.h \
-            $$COMMON_PATH/ui/uploadwidget.h \
             $$COMMON_PATH/ui/dialog.h \
             $$COMMON_PATH/ui/comportwidget.h \
             $$COMMON_PATH/include/radiouart.h \
@@ -32,6 +31,7 @@ FORMS +=    $$COMMON_PATH/ui/dialog.ui \
 #FORMS +=    $$COMMON_PATH/ui/uploadwidget.ui \
 #
 #HEADERS += $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
+#             $$COMMON_PATH/ui/uploadwidget.h \
 #            $$COMMON_PATH/include/firmware/firmwareupdate.h \
 #            $$COMMON_PATH/include/firmware/nxpupdate.h
 
