@@ -6,11 +6,8 @@
 INCLUDEPATH +=  $$COMMON_PATH/include \
                 $$COMMON_PATH/source
 
-HEADERS +=  $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
-            $$COMMON_PATH/include/desktopapp.h \
+HEADERS +=  $$COMMON_PATH/include/desktopapp.h \
             $$COMMON_PATH/include/desktopui.h \
-            $$COMMON_PATH/include/firmware/firmwareupdate.h \
-            $$COMMON_PATH/include/firmware/nxpupdate.h \
             $$COMMON_PATH/include/utils.h \
             $$COMMON_PATH/include/recentfiles.h \
             $$COMMON_PATH/ui/uploadwidget.h \
@@ -21,18 +18,27 @@ HEADERS +=  $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
             $$COMMON_PATH/include/queue.h
 
 SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
-            $$COMMON_PATH/source/firmware/firmwareupdate.cpp \
-            $$COMMON_PATH/source/firmware/nxpupdate.cpp \
             $$COMMON_PATH/source/radiouart.cpp \
             $$COMMON_PATH/source/recentfiles.cpp \
-            $$COMMON_PATH/ui/uploadwidget.cpp \
             $$COMMON_PATH/ui/dialog.cpp \
             $$COMMON_PATH/ui/comportwidget.cpp \
             $$COMMON_PATH/source/fsm.cpp
 
-FORMS +=    $$COMMON_PATH/ui/uploadwidget.ui \
-            $$COMMON_PATH/ui/dialog.ui \
+FORMS +=    $$COMMON_PATH/ui/dialog.ui \
             $$COMMON_PATH/ui/comportwidget.ui
+
+#use_firmware_nxp {
+#
+#FORMS +=    $$COMMON_PATH/ui/uploadwidget.ui \
+#
+#HEADERS += $$COMMON_PATH/libs/lpc2isp/lpc2isp-lib.h \
+#            $$COMMON_PATH/include/firmware/firmwareupdate.h \
+#            $$COMMON_PATH/include/firmware/nxpupdate.h
+
+#SOURCES += $$COMMON_PATH/ui/uploadwidget.cpp \
+#            $$COMMON_PATH/source/firmware/firmwareupdate.cpp \
+#           $$COMMON_PATH/source/firmware/nxpupdate.cpp
+#}
 
 mac {
     SOURCES += $$COMMON_PATH/source/utilsmacosx.cpp

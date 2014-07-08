@@ -25,6 +25,6 @@
 
 #include "../ui/dialog.h"
 #include "../ui/comportwidget.h"
-#include "../ui/uploadwidget.h"
+//#include "../ui/uploadwidget.h"
 
 #endif
