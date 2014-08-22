@@ -45,6 +45,7 @@ public:
 
     void init(const QString & companyName, const QString & applicatioName);
 
+    // answer to the double-click on external file linked to your application
     bool event(QEvent *event);
 
     /* The object parameters must have :
@@ -53,7 +54,13 @@ public:
      */
     static QThread* launchObjectInThread(QObject* object);
 
+    // restart the application and kill the actual
+    static void restart();
+
+    // retrieve the application's settings object
     static QSettings* settings();
+
+    // get the recent files object
     static RecentFiles* recentfiles();
 
     static QString langFromSettings();
