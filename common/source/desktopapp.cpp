@@ -24,6 +24,7 @@
 #include "../include/desktopapp.h"
 
 #include <QtCore/QDir>
+#include <QtCore/QProcess>
 #include <QtGui/QFileOpenEvent>
 
 
