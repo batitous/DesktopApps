@@ -25,9 +25,16 @@
 
 #include <QtCore/QStringList>
 
+#include <math.h>
+
 class Utils
 {
 public:
+    double round(double d)
+    {
+      return floor(d + 0.5);
+    }
+
     static int getListOfPortCom(QStringList *portList);
 
     static QString getUserDataPath();
