@@ -204,6 +204,10 @@ QThread* DesktopApp::launchObjectInThread(QObject* object)
 
 void DesktopApp::restart()
 {
-    QProcess::startDetached(QApplication::applicationFilePath());
+    QString app = QApplication::applicationFilePath();
+    QStringList arguments = QApplication::arguments();
+    QString wd = QDir::currentPath();
+
+    QProcess::startDetached(app, arguments, wd);
     QApplication::exit();
 }
