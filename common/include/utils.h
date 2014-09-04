@@ -30,7 +30,7 @@
 class Utils
 {
 public:
-    double round(double d)
+    static double round(double d)
     {
       return floor(d + 0.5);
     }

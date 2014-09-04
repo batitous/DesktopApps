@@ -68,7 +68,6 @@ void RecentFiles::save()
     {
         tmp1 = key + QString::number(i);
         tmp0 = mList->at(i)->file + "|"+ mList->at(i)->date+"|"+mList->at(i)->programName;
-
         mSettings->setValue(tmp1, QVariant(tmp0) );
     }
 }

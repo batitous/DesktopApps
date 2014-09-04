@@ -50,7 +50,7 @@ public:
 
     /* The object parameters must have :
      *  - a slot to start the object's code : void start();
-     *  - a signal when finish Q_SIGNALS: void finished();
+     *  - a signal when thread finished: Q_SIGNALS: void finished();
      */
     static QThread* launchObjectInThread(QObject* object);
 
