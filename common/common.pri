@@ -12,16 +12,13 @@ HEADERS +=  $$COMMON_PATH/include/desktopapp.h \
             $$COMMON_PATH/include/recentfiles.h \
             $$COMMON_PATH/ui/dialog.h \
             $$COMMON_PATH/ui/comportwidget.h \
-            $$COMMON_PATH/include/radiouart.h \
-            $$COMMON_PATH/include/fsm.h \
-            $$COMMON_PATH/include/queue.h
+            $$COMMON_PATH/include/radiouart.h
 
 SOURCES +=  $$COMMON_PATH/source/desktopapp.cpp \
             $$COMMON_PATH/source/radiouart.cpp \
             $$COMMON_PATH/source/recentfiles.cpp \
             $$COMMON_PATH/ui/dialog.cpp \
-            $$COMMON_PATH/ui/comportwidget.cpp \
-            $$COMMON_PATH/source/fsm.cpp
+            $$COMMON_PATH/ui/comportwidget.cpp
 
 FORMS +=    $$COMMON_PATH/ui/dialog.ui \
             $$COMMON_PATH/ui/comportwidget.ui
@@ -45,7 +42,7 @@ mac {
 
     LIBS += $$COMMON_PATH/libs/lpc2isp/liblpc2isp-macosx.a
 
-    LIBS += $$BABCODE_PATH/project/macosx/Build/Products/Release/libbabcode-macosx.a
+    LIBS += $$BABEXTENDED_PATH/project/macosx/Build/Products/Release/libbabextended.a
 
     LIBS += -framework AppKit -framework IOKit
 }
@@ -63,7 +60,7 @@ win32 {
 #    LIBS += $$BABCODE_PATH/project/win32/libbabcode-win32.lib
 
 # Mingw gcc library
-    LIBS += -L$$BABCODE_PATH/project/win32/bin/Release -lbabcode -lws2_32 -liphlpapi
+    LIBS += -L$$BABEXTENDED_PATH/project/win32/bin/Release -lbabcode -lws2_32 -liphlpapi
 
 }
 

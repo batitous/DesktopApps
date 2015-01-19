@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-#include <babcode.h>
+#include <babextended.h>
 
 #include "../include/utils.h"
 

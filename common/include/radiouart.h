@@ -24,7 +24,7 @@
 #define RADIOUART_H
 
 #include <QtCore/QString>
-#include <babcode.h>
+#include <babextended.h>
 
 #define RADIO_BUFFER_SIZE       (32)
 
