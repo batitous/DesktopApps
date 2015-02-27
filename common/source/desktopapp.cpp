@@ -135,6 +135,9 @@ void DesktopApp::init(const QString & companyName, const QString & applicationNa
     qInstallMessageHandler(desktopAppMessageOutput);
 #endif
 
+    QString babcodelog = path +"/babcode.log";
+    Log::global()->start(babcodelog.toLatin1().constData(), true);
+
     qDebug() << "DesktopApp::init local resources:" << path;
 
     // Load the specific lang
